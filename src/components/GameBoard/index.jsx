@@ -1,6 +1,6 @@
 import React from "react";
 import BoardSpace from "../BoardSpace";
-import './styles.css'
+import "./styles.css";
 
 const INITIAL_STATE = {
   currentPlayer: "x",
@@ -37,7 +37,11 @@ class GameBoard extends React.Component {
       );
     });
 
-    return <div className="board">{board}</div>;
+    return (
+      <div className="game">
+        <div className="board">{board}</div>;
+      </div>
+    );
   }
 }
 

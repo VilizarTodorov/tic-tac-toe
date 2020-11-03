@@ -1,7 +1,18 @@
-.board {
-  display: flex;
+.game{
   width: 400px;
   height: 400px;
+  position: relative;
+}
+
+.board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   background-color: darkblue;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
