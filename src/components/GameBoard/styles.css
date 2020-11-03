@@ -1,5 +1,7 @@
 .board {
   display: flex;
-  width: 200px;
+  width: 400px;
+  height: 400px;
   flex-wrap: wrap;
+  background-color: darkblue;
 }

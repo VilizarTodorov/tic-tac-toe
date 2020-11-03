@@ -1,0 +1,12 @@
+.x {
+  width: 55%;
+}
+
+.x__line {
+  fill: none;
+  stroke: #f05483;
+  stroke-width: 20;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 45;
+}

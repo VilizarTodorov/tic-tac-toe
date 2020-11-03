@@ -1,0 +1,13 @@
+.o{
+    width: 60%;
+    transform: rotate(-90deg);
+}
+
+.o__line{
+    fill: none;
+    stroke: darkgoldenrod;
+    stroke-width: 20;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 126;
+    stroke-linecap: round;
+}

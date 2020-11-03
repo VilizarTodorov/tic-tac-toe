@@ -1,5 +1,17 @@
 .board-space{
-    width: 60px;
-    height: 60px;
-    border: none;
+    width: 33%;
+    height: 33%;
+    border: 1px solid red;
+    background-color: transparent;
+    color: wheat;
+    outline: none;
+    position: relative;
+}
+
+.board-space:hover{
+    background-color: black;
+}
+
+.board-space.disabled:hover{
+    background-color: darkblue;
 }

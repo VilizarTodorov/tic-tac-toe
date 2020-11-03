@@ -1,11 +1,12 @@
 import React from "react";
-import './styles.css'
+import SymbolO from "../SymbolO";
+import SymbolX from "../SymbolX";
+import "./styles.css";
 
 const BoardSpace = (props) => {
   return (
     <button
-      className="board-space"
-      disabled={props.symbol ? true : false}
+      className={`board-space ${props.symbol ? "disabled" : ""}`}
       onClick={() => {
         if (props.symbol) {
           return;
@@ -13,7 +14,8 @@ const BoardSpace = (props) => {
         props.performPlayerTurn(props.index);
       }}
     >
-      {props.symbol}
+      {props.symbol === 'x' && <SymbolX/>}
+      {props.symbol === 'o' && <SymbolO/>}
     </button>
   );
 };
