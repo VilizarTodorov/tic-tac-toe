@@ -1,5 +1,6 @@
 import React from "react";
 import BoardSpace from "../BoardSpace";
+import './styles.css'
 
 const INITIAL_STATE = {
   currentPlayer: "x",
