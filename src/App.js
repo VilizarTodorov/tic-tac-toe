@@ -1,12 +1,10 @@
-import logo from './logo.svg';
-import GameBoard from './components/GameBoard'
-import './App.css';
+import "./App.css";
+import Game from "./components/Game";
 
 function App() {
-
   return (
     <div className="App">
-      <GameBoard></GameBoard>
+      <Game></Game>
     </div>
   );
 }

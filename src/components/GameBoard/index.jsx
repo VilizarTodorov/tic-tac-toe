@@ -37,11 +37,7 @@ class GameBoard extends React.Component {
       );
     });
 
-    return (
-      <div className="game">
-        <div className="board">{board}</div>;
-      </div>
-    );
+    return <div className="board">{board}</div>;
   }
 }
 

@@ -1,0 +1,23 @@
+.initial-board {
+  width: 400px;
+  height: 400px;
+  background-color: #ffdab9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 20%;
+  background: transparent;
+}
+

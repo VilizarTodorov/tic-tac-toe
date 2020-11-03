@@ -1,17 +1,34 @@
-.board-space{
-    width: 33%;
-    height: 33%;
-    border: 1px solid red;
-    background-color: transparent;
-    color: wheat;
-    outline: none;
-    position: relative;
+.board-space {
+  width: 33%;
+  height: 33%;
+  border: 1px solid #ffe600;
+  background-color: transparent;
+  color: wheat;
+  outline: none;
+  position: relative;
 }
 
-.board-space:hover{
-    background-color: black;
+.board-space:hover {
+  background-color: black;
 }
 
-.board-space.disabled:hover{
-    background-color: darkblue;
+.board-space.disabled:hover {
+  background-color: darkblue;
+}
+
+.board-space:nth-child(-n + 3) {
+  border-top: 0;
+  height: 34%;
+}
+.board-space:nth-child(3n + 1) {
+  border-left: 0;
+}
+.board-space:nth-child(3n + 3) {
+  border-right: 0;
+}
+.board-space:nth-child(3n + 2) {
+  width: 34%;
+}
+.board-space:nth-last-child(-n + 3) {
+  border-bottom: 0;
 }
