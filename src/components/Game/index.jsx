@@ -6,7 +6,7 @@ import "./styles.css";
 
 const INITIAL_STATE = {
   isPlaying: false,
-  component: []
+  component: [],
 };
 
 class Game extends React.Component {
@@ -15,12 +15,14 @@ class Game extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  componentDidMount(){
-    this.setState({component:<InitialGameBoardScreen startGame={this.startGame}></InitialGameBoardScreen>})
+  componentDidMount() {
+    this.setState({ component: <InitialGameBoardScreen startGame={this.startGame}></InitialGameBoardScreen> });
   }
 
   startGame = () => {
-    this.setState({component:[]},() => setTimeout(() => this.setState({component:<GameBoard></GameBoard>}),700));
+    this.setState({ component: [] }, () =>
+      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 700)
+    );
   };
 
   render() {
@@ -38,9 +40,9 @@ class Game extends React.Component {
           }}
           enter={{ transform: "rotateX(0deg) rotateY(0)" }}
           leave={{ transform: "rotateX(45deg) rotateY(90deg)" }}
-          config={{ ...config.wobbly,duration:700 }}
+          config={{ ...config.wobbly, duration: 700 }}
         >
-          {(component) => (props) => <div style = {props}>{component}</div>}
+          {(component) => (props) => <div style={props}>{component}</div>}
         </Transition>
       </div>
     );
@@ -48,22 +50,3 @@ class Game extends React.Component {
 }
 
 export default Game;
-
-{
-  /* <Transition
-  items={this.state.isPlaying}
-  from={{ transform: "rotateX(45deg) rotateY(90deg)", height: "400px" }}
-  enter={{ transform: "rotateX(0deg) rotateY(0)" }}
-  leave={{ background:'white' }}
->
-  {(isPlaying) =>
-    isPlaying
-      ? (props) => <div style={props}>{<GameBoard></GameBoard>}</div>
-      : (props) => (
-          <div style={props}>
-            <InitialGameBoardScreen startGame={this.startGame}></InitialGameBoardScreen>
-          </div>
-        )
-  }
-</Transition> */
-}
