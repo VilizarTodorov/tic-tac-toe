@@ -21,7 +21,7 @@ class Game extends React.Component {
 
   startGame = () => {
     this.setState({ component: [] }, () =>
-      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 700)
+      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 300)
     );
   };
 
@@ -39,8 +39,8 @@ class Game extends React.Component {
             width: "400px",
           }}
           enter={{ transform: "rotateX(0deg) rotateY(0)" }}
-          leave={{ transform: "rotateX(45deg) rotateY(90deg)" }}
-          config={{ ...config.wobbly, duration: 700 }}
+          leave={{ transform: "rotateX(-45deg) rotateY(-90deg)" }}
+          config={{ duration: 300 }}
         >
           {(component) => (props) => <div style={props}>{component}</div>}
         </Transition>
