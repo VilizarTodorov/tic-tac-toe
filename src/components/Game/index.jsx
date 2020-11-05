@@ -34,9 +34,9 @@ class Game extends React.Component {
           items={component}
           from={{
             transform: "rotateY(90deg) rotateX(90deg)",
-            height: "400px",
+            height: "100%",
             position: "absolute",
-            width: "400px",
+            width: "100%",
           }}
           enter={{ transform: "rotateY(0deg) rotateX(0)" }}
           leave={{ transform: "rotateY(90deg) rotateX(-90deg)" }}
