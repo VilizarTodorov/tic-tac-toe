@@ -21,7 +21,7 @@ class Game extends React.Component {
 
   startGame = () => {
     this.setState({ component: [] }, () =>
-      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 300)
+      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 250)
     );
   };
 
@@ -33,14 +33,14 @@ class Game extends React.Component {
         <Transition
           items={component}
           from={{
-            transform: "rotateX(45deg) rotateY(90deg)",
+            transform: "rotateY(90deg) rotateX(90deg)",
             height: "400px",
             position: "absolute",
             width: "400px",
           }}
-          enter={{ transform: "rotateX(0deg) rotateY(0)" }}
-          leave={{ transform: "rotateX(-45deg) rotateY(-90deg)" }}
-          config={{ duration: 300 }}
+          enter={{ transform: "rotateY(0deg) rotateX(0)" }}
+          leave={{ transform: "rotateY(90deg) rotateX(-90deg)" }}
+          config={{ duration: 250}}
         >
           {(component) => (props) => <div style={props}>{component}</div>}
         </Transition>
