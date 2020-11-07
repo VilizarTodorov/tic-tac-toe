@@ -1,10 +1,12 @@
 import "./App.css";
-import Game from "./components/Game";
+import Routes from "./components/Routes";
+import Navigation from "./components/Navigation";
 
 function App() {
   return (
     <div className="App">
-      <Game></Game>
+      <Navigation />
+      <Routes />
     </div>
   );
 }

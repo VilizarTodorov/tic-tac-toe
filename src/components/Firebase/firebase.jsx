@@ -22,6 +22,7 @@ const prodConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
+
 const config = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
 
 class Firebase {
@@ -30,7 +31,13 @@ class Firebase {
     this.auth = app.auth();
     this.db = app.firestore();
   }
+
+  //user functions
+  signInWithEmailAddress = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
+  createUserWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
+  singOut = () => this.auth.signOut();
+  passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
+  updatePassword = (password) => this.auth.currentUser.updatePassword(password);
 }
 
-
-export default Firebase
+export default Firebase;
