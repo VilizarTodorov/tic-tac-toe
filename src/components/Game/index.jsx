@@ -1,8 +1,9 @@
 import React from "react";
 import GameBoard from "../GameBoard";
 import InitialGameBoardScreen from "../InitialGameBoardScreen";
-import { config, Spring, Transition } from "react-spring/renderprops";
+import { Transition } from "react-spring/renderprops";
 import "./styles.css";
+
 
 const INITIAL_STATE = {
   isPlaying: false,
