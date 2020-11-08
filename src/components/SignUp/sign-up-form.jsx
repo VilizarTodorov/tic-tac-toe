@@ -44,7 +44,7 @@ class BaseSignUpForm extends React.Component {
     return (
       <div className="App-sign-up">
         <h1>Sign Up</h1>
-        <form onSubmit={this.onSubmit}>
+        <form className="sign-up-form" onSubmit={this.onSubmit}>
           <input
             id="email"
             name="email"
@@ -76,7 +76,7 @@ class BaseSignUpForm extends React.Component {
             required
           />
 
-          <button disabled={isInvalid} type="submit">
+          <button className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
             Sign Up
           </button>
 
