@@ -76,7 +76,7 @@ class BaseSignUpForm extends React.Component {
             required
           />
 
-          <button className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
+          <button disabled={isInvalid} className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
             Sign Up
           </button>
 

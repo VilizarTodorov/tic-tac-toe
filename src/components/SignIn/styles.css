@@ -1,3 +1,53 @@
-.sign-in-link{
-    flex-grow: 0.1;
+.App-sign-in-page {
+  padding: 10px;
+  display: flex;
+  width: 400px;
+  height: 400px;
+  background-color: #ffdab9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 0px #525252;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.App-sign-in {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.sign-in-form {
+  display: flex;
+  width: 80%;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.form-input {
+  outline: none;
+  height: 37px;
+  border-radius: 10px;
+  border: 3px solid #54d5c1;
+}
+
+.submit-button {
+  height: 30px;
+  background-color: #2482dc;
+  border-radius: 10px;
+  color: #ffd486;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.4s;
+}
+
+.submit-button.disabled {
+  background-color: #132e48;
+}
+
+.sign-in-link {
+  flex-grow: 0.1;
 }

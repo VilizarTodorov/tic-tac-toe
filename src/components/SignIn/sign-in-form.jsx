@@ -46,7 +46,7 @@ class BaseSignInForm extends React.Component {
     const isInvalid = email === "" || password === "";
 
     return (
-      <div className="sign-in-form">
+      <div className="App-sign-in">
         <h1>Sign In</h1>
         <form onSubmit={this.onSubmit} className="from sign-in-form">
           <input
@@ -71,7 +71,7 @@ class BaseSignInForm extends React.Component {
             required
           />
 
-          <button disabled={isInvalid} type="submit">
+          <button disabled={isInvalid} className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
             Sign In
           </button>
           {error && <p>{error.message}</p>}
