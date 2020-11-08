@@ -1,8 +1,10 @@
 import "./App.css";
 import Routes from "./components/Routes";
 import Navigation from "./components/Navigation";
+import { withAuthentication } from "./components/Session";
 
-function App() {
+function App(props) {
+  console.log(props)
   return (
     <div className="App">
       {/* <Navigation /> */}
@@ -11,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthentication(App);
