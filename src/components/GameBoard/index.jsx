@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import BoardSpace from "../BoardSpace";
 import { HOME } from "../../constants/routes";
 import { withAuthorization } from "../Session";
@@ -6,12 +6,11 @@ import "./styles.css";
 
 const INITIAL_STATE = {
   board: [null, null, null, null, null, null, null, null, null],
-  playerX: "empty",
-  playerO: "empty",
   isGameDone: false,
   message: "X’s turn",
   winner: "empty",
   currentPlayerTurn: "x",
+  turns: 0,
 };
 
 class GameBoard extends React.Component {
@@ -37,6 +36,15 @@ class GameBoard extends React.Component {
     this.listener();
   }
 
+  getRoomId = () => {
+    return this.props.match.params.room;
+  };
+
+  clearBoart = () => {
+    const roomID = this.getRoomId();
+    this.setState({ ...INITIAL_STATE }, () => this.props.firebase.updateRoomEntry(roomID, this.state));
+  };
+
   checkBoard = (board, symbol) => {
     if (
       (board[0] === symbol && board[1] === symbol && board[2] === symbol) ||
@@ -59,7 +67,7 @@ class GameBoard extends React.Component {
       return;
     }
 
-    const roomID = this.props.match.params.room;
+    const roomID = this.getRoomId();
 
     const newBoard = [...this.state.board];
     newBoard[index] = this.state.currentPlayerTurn;
@@ -80,9 +88,7 @@ class GameBoard extends React.Component {
         turns: state.turns + 1,
       }),
       () => {
-        this.props.firebase.getRoomEntry(roomID).update({
-          ...this.state,
-        });
+        this.props.firebase.updateRoomEntry(roomID, this.state);
       }
     );
   };
@@ -103,9 +109,12 @@ class GameBoard extends React.Component {
     });
 
     return (
-      <div className="game">
-        <div className="board">{gameBoard}</div>
-      </div>
+      <Fragment>
+        <div className="game">
+          <div className="board">{gameBoard}</div>
+        </div>
+        <button onClick={this.clearBoart}>clearBoart</button>
+      </Fragment>
     );
   }
 }
