@@ -4,10 +4,9 @@ import Navigation from "./components/Navigation";
 import { withAuthentication } from "./components/Session";
 
 function App(props) {
-  console.log(props)
   return (
     <div className="App">
-      {/* <Navigation /> */}
+      <Navigation />
       <Routes />
     </div>
   );
