@@ -82,6 +82,14 @@ class GameBoard extends React.Component {
       return;
     }
 
+    if (this.state.currentPlayerTurn === "X" && this.props.user.uid !== this.state.X) {
+      return;
+    }
+
+    if (this.state.currentPlayerTurn === "O" && this.props.user.uid !== this.state.O) {
+      return;
+    }
+
     const roomID = this.getRoomId();
 
     const newBoard = [...this.state.board];
@@ -142,7 +150,7 @@ class GameBoard extends React.Component {
   };
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     const { board, message } = this.state;
 
     const gameBoard = board.map((space, index) => {
