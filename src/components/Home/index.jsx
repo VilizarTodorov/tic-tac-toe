@@ -6,13 +6,13 @@ const Home = (props) => {
   const generateRoom = () => {
     const room = {
       board: [null, null, null, null, null, null, null, null, null],
-      playerX: "empty",
-      playerO: "empty",
+      X: "empty",
+      O: "empty",
       owner: props.user.uid,
       isGameDone: false,
       message: "X’s turn",
       winner: "empty",
-      currentPlayerTurn:'x',
+      currentPlayerTurn:'X',
       turns:0
 
     };

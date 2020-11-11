@@ -6,6 +6,7 @@ import "./styles.css";
 const BoardSpace = (props) => {
   return (
     <button
+      disabled={props.symbol ? true : false}
       className={`board-space ${props.symbol ? "disabled" : ""}`}
       onClick={() => {
         if (props.symbol) {
@@ -14,8 +15,8 @@ const BoardSpace = (props) => {
         props.performPlayerTurn(props.index);
       }}
     >
-      {props.symbol === 'x' && <SymbolX/>}
-      {props.symbol === 'o' && <SymbolO/>}
+      {props.symbol === "X" && <SymbolX />}
+      {props.symbol === "O" && <SymbolO />}
     </button>
   );
 };

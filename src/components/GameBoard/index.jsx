@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   isGameDone: false,
   message: "X’s turn",
   winner: "empty",
-  currentPlayerTurn: "x",
+  currentPlayerTurn: "X",
   turns: 0,
 };
 
@@ -62,6 +62,21 @@ class GameBoard extends React.Component {
     return false;
   };
 
+  performCheckBoard = (board, symbol, turns) => {
+    if (turns >= 4) {
+      if (symbol === "X" && this.checkBoard(board, symbol)) {
+        return "XWINS";
+      }
+      if (symbol === "O" && this.checkBoard(board, symbol)) {
+        return "OWINS";
+      }
+      if (turns === 8) {
+        return "DRAW";
+      }
+    }
+    return "NONE";
+  };
+
   performPlayerTurn = (index) => {
     if (this.state.isGameDone) {
       return;
@@ -71,31 +86,64 @@ class GameBoard extends React.Component {
 
     const newBoard = [...this.state.board];
     newBoard[index] = this.state.currentPlayerTurn;
+    let winner = "empty";
+    let newMessage = "";
+    let newIsGameDone = false;
 
-    let hasWinner = false;
+    const checkBoardOutcome = this.performCheckBoard(newBoard, this.state.currentPlayerTurn, this.state.turns);
 
-    if (this.state.turns >= 4) {
-      hasWinner = this.checkBoard(newBoard, this.state.currentPlayerTurn);
-      console.log(hasWinner);
+    switch (checkBoardOutcome) {
+      case "XWINS":
+        {
+          winner = "X";
+          newMessage = "X WINS";
+          newIsGameDone = true;
+        }
+
+        break;
+
+      case "OWINS":
+        {
+          winner = "O";
+          newMessage = "O WINS";
+          newIsGameDone = true;
+        }
+
+        break;
+
+      case "DRAW":
+        {
+          newMessage = "DRAW!";
+          newIsGameDone = true;
+        }
+        break;
+      case "NONE":
+      default:
+        newMessage = `${this.state.currentPlayerTurn === "X" ? "O" : "X"}'s Turn`;
+        break;
     }
 
-    this.setState(
-      (state) => ({
-        board: newBoard,
-        currentPlayerTurn: state.currentPlayerTurn === "x" ? "o" : "x",
-        message: state.message === "X’s turn" ? "O’s turn" : "X’s turn",
-        isGameDone: hasWinner,
-        turns: state.turns + 1,
-      }),
-      () => {
-        this.props.firebase.updateRoomEntry(roomID, this.state);
-      }
-    );
+    const newPlayerTurn = this.state.currentPlayerTurn === "X" ? "O" : "X";
+    const newTurnNumber = this.state.turns + 1;
+
+    const room = {
+      board: newBoard,
+      isGameDone: newIsGameDone,
+      message: newMessage,
+      currentPlayerTurn: newPlayerTurn,
+      turns: newTurnNumber,
+      winner,
+    };
+
+    this.props.firebase
+      .updateRoomEntry(roomID, room)
+      .then((x) => console.log("success", x))
+      .catch((err) => console.log(err));
   };
 
   render() {
-    console.log(this.state);
-    const { board } = this.state;
+    console.log(this.state)
+    const { board, message } = this.state;
 
     const gameBoard = board.map((space, index) => {
       return (
@@ -110,6 +158,7 @@ class GameBoard extends React.Component {
 
     return (
       <Fragment>
+        <div>{message}</div>
         <div className="game">
           <div className="board">{gameBoard}</div>
         </div>
