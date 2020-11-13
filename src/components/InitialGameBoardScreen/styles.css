@@ -21,3 +21,16 @@
   background: transparent;
 }
 
+.initial-board .o__line,.x__line{
+  stroke: rgb(245, 175, 114);
+  transition: all 0.4s ease-in-out;
+}
+
+
+.initial-board .x:hover .x__line{
+  stroke: #f05483;
+}
+
+.initial-board .o__line:hover{
+  stroke: #4fc4b2;
+}
