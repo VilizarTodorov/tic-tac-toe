@@ -21,7 +21,7 @@
   background: transparent;
 }
 
-.initial-board.o__line,
+.initial-board .o__line,
 .initial-board .x__line {
   stroke: rgb(245, 175, 114);
   transition: all 0.4s ease-in-out;
