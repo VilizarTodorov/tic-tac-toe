@@ -6,6 +6,7 @@ import { HOME } from "../../constants/routes";
 
 const INITIAL_STATE = {
   email: "",
+  username: "",
   password: "",
   repeatPassword: "",
   error: "",
@@ -36,7 +37,7 @@ class BaseSignUpForm extends React.Component {
   };
 
   render() {
-    const { email, password, repeatPassword, error } = this.state;
+    const { email, username, password, repeatPassword, error } = this.state;
 
     const isInvalid =
       password !== repeatPassword || password === "" || repeatPassword === "" || email === "" || password.length < 6;
@@ -55,6 +56,18 @@ class BaseSignUpForm extends React.Component {
             onChange={this.onChange}
             required
           />
+
+          <input
+            id="username"
+            name="username"
+            className="username-input form-input"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={this.onChange}
+            required
+          />
+
           <input
             id="password"
             name="password"

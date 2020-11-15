@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import SignOut from "../SignOut";
 import "./styles.css";
 
 const Navigation = () => {
@@ -15,6 +14,11 @@ const Navigation = () => {
       <li>
         <Link to={ROUTES.ROOMS}>
           <h1>Rooms</h1>
+        </Link>
+      </li>
+      <li>
+        <Link to={ROUTES.PROFILE}>
+          <h1>Profile</h1>
         </Link>
       </li>
     </ul>

@@ -6,4 +6,6 @@
   width: 100%;
   align-items: flex-end;
   justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
 }

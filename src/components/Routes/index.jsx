@@ -7,6 +7,7 @@ const SignUp = React.lazy(() => import("../SignUp"));
 const SignIn = React.lazy(() => import("../SignIn"));
 const Rooms = React.lazy(() => import("../Rooms"));
 const GameRoom = React.lazy(() => import("../GameRoom"));
+const Profile = React.lazy(() => import("../Profile"));
 
 const Routes = (props) => {
   return (
@@ -31,6 +32,10 @@ const Routes = (props) => {
 
           <Route exact path={ROUTES.GAME_ROOM}>
             <GameRoom />
+          </Route>
+
+          <Route exact path={ROUTES.PROFILE}>
+            <Profile />
           </Route>
         </Suspense>
       </Switch>

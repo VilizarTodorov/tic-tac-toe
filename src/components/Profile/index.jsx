@@ -1,11 +1,15 @@
 import React from "react";
+import SignOut from "../SignOut";
+import { withAuthorization } from "../Session";
 
 const Profile = (props) => {
   return (
     <div className="profile">
-      <i className="fas fa-user fa-2x"></i>
+      <SignOut></SignOut>
     </div>
   );
 };
 
-export default Profile;
+const condition = (authUser) => authUser != null;
+
+export default withAuthorization(condition)(Profile);

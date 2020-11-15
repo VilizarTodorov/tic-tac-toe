@@ -9,7 +9,6 @@ const Header = (props) => {
         <header className="App-header">
             <Logo></Logo>
             <Navigation></Navigation>
-            <Profile></Profile>
         </header>
     )
 }

@@ -6,12 +6,7 @@ import "./styles.css";
 const Logo = (props) => {
   return (
     <Fragment>
-      <div className="symbol">
-        <SymbolX></SymbolX>
-      </div>
-      <div className="symbol">
-        <SymbolO></SymbolO>
-      </div>
+      <h2>Tic Tac Toe</h2>
     </Fragment>
   );
 };
