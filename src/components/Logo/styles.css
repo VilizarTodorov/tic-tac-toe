@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  width: 20%;
+  flex-direction: row;
+}
+
+.logo .symbol,
+.logo .symbol div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

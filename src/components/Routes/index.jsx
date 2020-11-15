@@ -10,29 +10,31 @@ const GameRoom = React.lazy(() => import("../GameRoom"));
 
 const Routes = (props) => {
   return (
-    <Switch>
-      <Suspense fallback={<h1>...Loading</h1>}>
-        <Route exact path={ROUTES.HOME}>
-          <Home />
-        </Route>
+    <main className="App-main">
+      <Switch>
+        <Suspense fallback={<h1>...Loading</h1>}>
+          <Route exact path={ROUTES.HOME}>
+            <Home />
+          </Route>
 
-        <Route exact path={ROUTES.SIGN_UP}>
-          <SignUp />
-        </Route>
+          <Route exact path={ROUTES.SIGN_UP}>
+            <SignUp />
+          </Route>
 
-        <Route exact path={ROUTES.SIGN_IN}>
-          <SignIn />
-        </Route>
+          <Route exact path={ROUTES.SIGN_IN}>
+            <SignIn />
+          </Route>
 
-        <Route exact path={ROUTES.ROOMS}>
-          <Rooms />
-        </Route>
+          <Route exact path={ROUTES.ROOMS}>
+            <Rooms />
+          </Route>
 
-        <Route exact path={ROUTES.GAME_ROOM}>
-          <GameRoom />
-        </Route>
-      </Suspense>
-    </Switch>
+          <Route exact path={ROUTES.GAME_ROOM}>
+            <GameRoom />
+          </Route>
+        </Suspense>
+      </Switch>
+    </main>
   );
 };
 

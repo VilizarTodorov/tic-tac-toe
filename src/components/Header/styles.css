@@ -1,0 +1,9 @@
+.App-header {
+  background-color: peachpuff;
+  display: flex;
+  line-height: 60px;
+  height: 70px;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+}

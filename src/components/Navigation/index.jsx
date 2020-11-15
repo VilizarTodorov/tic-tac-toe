@@ -2,22 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import SignOut from "../SignOut";
+import "./styles.css";
 
 const Navigation = () => {
   return (
-    <ul>
+    <ul className="App-navigation">
       <li>
-        <Link to={ROUTES.HOME}>Home</Link>
+        <Link to={ROUTES.HOME}>
+          <h1>Home</h1>
+        </Link>
       </li>
       <li>
-        <Link to='/rooms/room'>Game Room</Link>
+        <Link to={ROUTES.ROOMS}>
+          <h1>Rooms</h1>
+        </Link>
       </li>
-      <li>
-        <Link to={ROUTES.ROOMS}>Rooms</Link>
-      </li>
-      <SignOut></SignOut>
     </ul>
   );
 };
 
-export default Navigation
+export default Navigation;
