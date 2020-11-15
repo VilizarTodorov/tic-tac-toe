@@ -1,5 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../Session";
+import "./styles.css";
 
 const INITIAL_STATE = {
   roomName: "",
@@ -30,7 +31,8 @@ class Home extends React.Component {
     return room;
   };
 
-  createRoom = () => {
+  createRoom = (event) => {
+    event.preventDefault()
     const room = this.generateRoom();
     const doc = this.props.firebase.createRoomEntry();
     const roomID = doc.id;
@@ -41,22 +43,27 @@ class Home extends React.Component {
     const { roomName } = this.state;
     let isInvalid = roomName === "";
     return (
-      <div>
-        <h1>Welcome to Tic Tac Toe</h1>
-        <input
-          id="roomName"
-          name="roomName"
-          className="form-input"
-          type="text"
-          placeholder="Room Name"
-          value={roomName}
-          onChange={this.onChange}
-          required
-        />
+      <div className="App-home App-page">
+        <div className="page-content">
+          <h1>Welcome to Tic Tac Toe</h1>
+          <h2>Create a room</h2>
+          <form onSubmit={this.createRoom} className="home-form page-form">
+            <input
+              id="roomName"
+              name="roomName"
+              className="form-input"
+              type="text"
+              placeholder="Room Name"
+              value={roomName}
+              onChange={this.onChange}
+              required
+            />
 
-        <button disabled={isInvalid} className="create-room-button" onClick={this.createRoom}>
-          Create room
-        </button>
+            <button disabled={isInvalid} className="submit-button create-room-button" onClick={this.createRoom}>
+              Create room
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

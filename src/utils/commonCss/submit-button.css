@@ -1,0 +1,13 @@
+.submit-button {
+    height: 30px;
+    background-color: #2482dc;
+    border-radius: 10px;
+    color: #ffd486;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.4s 
+}
+
+.submit-button.disabled{
+    background-color:#132e48 ;
+}

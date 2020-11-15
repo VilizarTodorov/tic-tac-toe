@@ -1,4 +1,12 @@
-/* .create-room-button{
-    width: 100px;
-    height: 30px;
-} */
+.App-home {
+    padding: 10px;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    background-color: #ffdab9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 0px #525252;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

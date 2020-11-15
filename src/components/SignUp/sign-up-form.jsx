@@ -43,9 +43,9 @@ class BaseSignUpForm extends React.Component {
       password !== repeatPassword || password === "" || repeatPassword === "" || email === "" || password.length < 6;
 
     return (
-      <div className="App-sign-up">
+      <div className="App-sign-up page-content">
         <h1>Sign Up</h1>
-        <form className="sign-up-form" onSubmit={this.onSubmit}>
+        <form className="sign-up-form page-form" onSubmit={this.onSubmit}>
           <input
             id="email"
             name="email"

@@ -4,10 +4,10 @@ import * as ROUTES from "../../constants/routes";
 
 const SignUpLink = (props) => {
   return (
-    <p className='sign-up-link'>
+    <p className="sign-up-link form-link">
       Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </p>
   );
 };
 
-export default SignUpLink
+export default SignUpLink;

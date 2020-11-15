@@ -1,0 +1,7 @@
+.page-form {
+  display: flex;
+  width: 80%;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

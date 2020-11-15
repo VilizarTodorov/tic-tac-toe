@@ -46,9 +46,9 @@ class BaseSignInForm extends React.Component {
     const isInvalid = email === "" || password === "";
 
     return (
-      <div className="App-sign-in">
+      <div className="App-sign-in page-content">
         <h1>Sign In</h1>
-        <form onSubmit={this.onSubmit} className="from sign-in-form">
+        <form className="sign-in-form page-form" onSubmit={this.onSubmit}>
           <input
             id="email"
             name="email"

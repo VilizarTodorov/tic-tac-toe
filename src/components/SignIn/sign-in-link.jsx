@@ -4,7 +4,7 @@ import * as ROUTES from "../../constants/routes";
 
 const SignInLink = (props) => {
   return (
-    <p className='sign-in-link'>
+    <p className="sign-in-link form-link">
       Already have an account? <Link to={ROUTES.SIGN_IN}>Sign In</Link>
     </p>
   );

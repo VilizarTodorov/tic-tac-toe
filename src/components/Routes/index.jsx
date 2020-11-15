@@ -23,7 +23,7 @@ const Routes = (props) => {
     from: { opacity: 0, transform: "translate(50%,0%)", position: "absolute" },
     enter: { opacity: 1, transform: "translate(0%,0%)" },
     leave: { opacity: 0, transform: "translate(-50%,0%)" },
-    config: { ...config.gentle },
+    config: { ...config.gentle},
   });
 
   return (
