@@ -21,6 +21,17 @@ const Navigation = () => {
           <h1>Profile</h1>
         </Link>
       </li>
+      <li>
+        <Link to={ROUTES.SIGN_IN}>
+          <h1>SIGN_IN</h1>
+        </Link>
+      </li>
+
+      <li>
+        <Link to={ROUTES.SIGN_UP}>
+          <h1>SIGN_UP</h1>
+        </Link>
+      </li>
     </ul>
   );
 };

@@ -1,18 +1,65 @@
 import React, { Suspense } from "react";
 import * as ROUTES from "../../constants/routes";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
+import "./styles.css";
+import { useTransition, animated, config } from "react-spring";
+import Home from "../Home";
+import SignIn from "../SignIn";
+import SignUp from "../SignUp";
+import Rooms from "../Rooms";
+import GameRoom from "../GameRoom";
+import Profile from "../Profile";
 
-const Home = React.lazy(() => import("../Home"));
-const SignUp = React.lazy(() => import("../SignUp"));
-const SignIn = React.lazy(() => import("../SignIn"));
-const Rooms = React.lazy(() => import("../Rooms"));
-const GameRoom = React.lazy(() => import("../GameRoom"));
-const Profile = React.lazy(() => import("../Profile"));
+// const Home = React.lazy(() => import("../Home"));
+// const SignUp = React.lazy(() => import("../SignUp"));
+// const SignIn = React.lazy(() => import("../SignIn"));
+// const Rooms = React.lazy(() => import("../Rooms"));
+// const GameRoom = React.lazy(() => import("../GameRoom"));
+// const Profile = React.lazy(() => import("../Profile"));
 
 const Routes = (props) => {
+  const location = useLocation();
+  const transitions = useTransition(location, (location) => location.pathname, {
+    from: { opacity: 0, transform: "translate(50%,0%)", position: "absolute" },
+    enter: { opacity: 1, transform: "translate(0%,0%)" },
+    leave: { opacity: 0, transform: "translate(-50%,0%)" },
+    config: { ...config.gentle },
+  });
+
   return (
     <main className="App-main">
-      <Switch>
+      {transitions.map(({ item, props, key }) => (
+        <animated.div key={key} style={props}>
+          <Switch location={item}>
+            {/* <Suspense fallback={<h1>...Loading</h1>}> */}
+            <Route exact path={ROUTES.HOME}>
+              <Home />
+            </Route>
+
+            <Route exact path={ROUTES.SIGN_UP}>
+              <SignUp />
+            </Route>
+
+            <Route exact path={ROUTES.SIGN_IN}>
+              <SignIn />
+            </Route>
+
+            <Route exact path={ROUTES.ROOMS}>
+              <Rooms />
+            </Route>
+
+            <Route exact path={ROUTES.GAME_ROOM}>
+              <GameRoom />
+            </Route>
+
+            <Route exact path={ROUTES.PROFILE}>
+              <Profile />
+            </Route>
+            {/* </Suspense> */}
+          </Switch>
+        </animated.div>
+      ))}
+      {/* <Switch>
         <Suspense fallback={<h1>...Loading</h1>}>
           <Route exact path={ROUTES.HOME}>
             <Home />
@@ -38,7 +85,7 @@ const Routes = (props) => {
             <Profile />
           </Route>
         </Suspense>
-      </Switch>
+      </Switch> */}
     </main>
   );
 };

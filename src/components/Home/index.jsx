@@ -42,7 +42,7 @@ class Home extends React.Component {
     let isInvalid = roomName === "";
     return (
       <div>
-        <h1>HOME</h1>
+        <h1>Welcome to Tic Tac Toe</h1>
         <input
           id="roomName"
           name="roomName"
