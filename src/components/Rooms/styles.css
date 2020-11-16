@@ -1,0 +1,11 @@
+.App-rooms-page{
+    height: 400px;
+}
+
+.rooms{
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
+    width: 80%;
+    justify-content: space-around;
+}

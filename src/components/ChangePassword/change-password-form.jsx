@@ -35,7 +35,7 @@ class ChangePasswordForm extends React.Component {
     const isInvalid = newPassword.length < 6 || newPassword !== repeatNewPassword;
     return (
       <div className="App-change-password page-content">
-        <h1>Change Password</h1>
+        <h1 className="page-title">Change Password</h1>
         <form className="change-password-form page-form" onSubmit={this.onSubmit}>
           <input
             id="newPassword"

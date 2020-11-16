@@ -36,7 +36,7 @@ class ResetPasswordForm extends React.Component {
     const isInvalid = resetEmail === "";
     return (
       <div className="App-reset-password page-content">
-        <h1>Reset Password</h1>
+        <h1 className="page-title">Reset Password</h1>
         <form className="reset-password-form page-form" onSubmit={this.onSubmit}>
           <input
             id="resetEmail"

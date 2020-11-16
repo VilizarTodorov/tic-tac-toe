@@ -1,5 +1,7 @@
 import React from "react";
 import { withAuthorization } from "../Session";
+import RoomEntry from '../RoomEntity'
+import './styles.css'
 
 const INITIAL_STATE = {
   rooms: [],
@@ -16,7 +18,7 @@ class Rooms extends React.Component {
     this.props.firebase
       .getAllRooms()
       .then((snapshot) => {
-        snapshot.forEach((doc) => console.log(doc.data()));
+        snapshot.forEach((doc) => rooms.push(doc.data()));
       })
       .then(() => this.setState({ rooms }))
       .catch((err) => console.log(err));
@@ -25,12 +27,15 @@ class Rooms extends React.Component {
   render() {
     const { rooms } = this.state;
     const roomsList = rooms.map((room, index) => {
-      return <li key={index}>{index}</li>;
+      return <li key={index}><RoomEntry roomName={room.roomName}></RoomEntry></li>;
     });
 
     return (
-      <div>
-        <ul>{roomsList}</ul>
+      <div className="App-rooms-page App-page">
+        <div className="page-content">
+        <h1 className='page-title'>Rooms</h1>
+        <ul className='rooms'>{roomsList}</ul>
+        </div>
       </div>
     );
   }

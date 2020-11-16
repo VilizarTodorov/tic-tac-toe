@@ -47,7 +47,7 @@ class BaseSignInForm extends React.Component {
 
     return (
       <div className="App-sign-in page-content">
-        <h1>Sign In</h1>
+        <h1 className="page-title">Sign In</h1>
         <form className="sign-in-form page-form" onSubmit={this.onSubmit}>
           <input
             id="email"
