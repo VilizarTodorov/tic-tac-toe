@@ -1,8 +1,46 @@
 .App-navigation {
   display: flex;
-  flex-direction: row;
 }
 
-li {
+.nav-option {
   list-style: none;
+}
+
+.nav-option a {
+  text-decoration: none;
+}
+
+.nav-option + .nav-option {
+  margin-left: 15px;
+}
+
+.menu-icon{
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .App-navigation { 
+    display: flex;
+    position: absolute;
+    top: 100%;
+    background-color: white;
+    width: 100%;
+    left: 0;
+    flex-direction: column;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .menu-icon{
+    display: block;
+  }
+}
+
+#menu{
+  display: none;
+}
+
+#menu:checked + .App-navigation {
+  height: auto;
 }

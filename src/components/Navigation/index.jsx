@@ -1,38 +1,49 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import "./styles.css";
 
 const Navigation = () => {
   return (
-    <ul className="App-navigation">
-      <li>
-        <Link to={ROUTES.HOME}>
-          <h1>Home</h1>
-        </Link>
-      </li>
-      <li>
-        <Link to={ROUTES.ROOMS}>
-          <h1>Rooms</h1>
-        </Link>
-      </li>
-      <li>
-        <Link to={ROUTES.PROFILE}>
-          <h1>Profile</h1>
-        </Link>
-      </li>
-      <li>
-        <Link to={ROUTES.SIGN_IN}>
-          <h1>SIGN_IN</h1>
-        </Link>
-      </li>
+    <Fragment>
+      <input type="checkbox" name="menu" id="menu" />
 
-      <li>
-        <Link to={ROUTES.SIGN_UP}>
-          <h1>SIGN_UP</h1>
-        </Link>
-      </li>
-    </ul>
+      <ul className="App-navigation">
+        <li className="nav-option">
+          <Link to={ROUTES.HOME}>
+            <p>Home</p>
+          </Link>
+        </li>
+
+        <li className="nav-option">
+          <Link to={ROUTES.ROOMS}>
+            <p>Rooms</p>
+          </Link>
+        </li>
+
+        <li className="nav-option">
+          <Link to={ROUTES.PROFILE}>
+            <p>Profile</p>
+          </Link>
+        </li>
+
+        <li className="nav-option">
+          <Link to={ROUTES.SIGN_IN}>
+            <p>SIGN_IN</p>
+          </Link>
+        </li>
+
+        <li className="nav-option">
+          <Link to={ROUTES.SIGN_UP}>
+            <p>SIGN_UP</p>
+          </Link>
+        </li>
+      </ul>
+
+      <label className='menu-icon' htmlFor="menu">
+        <i className="fas fa-bars fa-lg"></i>
+      </label>
+    </Fragment>
   );
 };
 
