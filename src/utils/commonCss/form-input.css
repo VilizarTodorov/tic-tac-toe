@@ -1,6 +1,7 @@
 .form-input {
-    outline: none;
-    height: 37px;
-    border-radius: 10px;
-    border: 3px solid #54d5c1;
-  }
+  padding: 5px;
+  outline: none;
+  height: 37px;
+  border-radius: 10px;
+  border: 3px solid #54d5c1;
+}

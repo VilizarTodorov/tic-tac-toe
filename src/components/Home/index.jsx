@@ -43,10 +43,10 @@ class Home extends React.Component {
     const { roomName } = this.state;
     let isInvalid = roomName === "";
     return (
-      <div className="App-home App-page">
+      <div className="App-home-page App-page">
         <div className="page-content">
-          <h1>Welcome to Tic Tac Toe</h1>
-          <h2>Create a room</h2>
+          <h1 className='page-title'>Welcome to Tic Tac Toe</h1>
+          <h2 className='secondary-title'>Create a room</h2>
           <form onSubmit={this.createRoom} className="home-form page-form">
             <input
               id="roomName"
