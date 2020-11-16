@@ -32,7 +32,7 @@ class Home extends React.Component {
   };
 
   createRoom = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const room = this.generateRoom();
     const doc = this.props.firebase.createRoomEntry();
     const roomID = doc.id;
@@ -59,7 +59,11 @@ class Home extends React.Component {
               required
             />
 
-            <button disabled={isInvalid} className="submit-button create-room-button" onClick={this.createRoom}>
+            <button
+              disabled={isInvalid}
+              className={`submit-button ${isInvalid ? "disabled" : ""}`}
+              onClick={this.createRoom}
+            >
               Create room
             </button>
           </form>

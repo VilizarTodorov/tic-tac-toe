@@ -1,7 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { withFirebase } from "../Firebase";
-import { compose } from "recompose";
+import { withAuthorization } from "../Session";
 import { HOME } from "../../constants/routes";
 
 const INITIAL_STATE = {
@@ -100,6 +98,6 @@ class BaseSignUpForm extends React.Component {
   }
 }
 
-const SignUpForm = compose(withRouter, withFirebase)(BaseSignUpForm);
+const condition = (authUser) => authUser == null;
 
-export default SignUpForm;
+export default withAuthorization(condition)(BaseSignUpForm);
