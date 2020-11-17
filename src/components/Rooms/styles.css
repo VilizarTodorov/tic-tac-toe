@@ -1,12 +1,12 @@
-.App-rooms-page{
-    height: 400px;
-    overflow-y: scroll;
+.App-rooms-page {
+  height: 400px;
+  overflow-y: scroll;
 }
 
-.rooms{
-    flex-direction: column;
-    display: flex;
-    flex-grow: 1;
-    width: 80%;
-    justify-content: space-around;
+.rooms {
+  flex-direction: column;
+  display: flex;
+  flex-grow: 1;
+  width: 80%;
+  justify-content: flex-start;
 }

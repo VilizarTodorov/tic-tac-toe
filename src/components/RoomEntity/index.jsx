@@ -6,7 +6,7 @@ const RoomEntity = (props) => {
   return (
     <div className="room-entity">
       <p>{props.roomName}</p>
-      <JoinRoomButton></JoinRoomButton>
+      <JoinRoomButton roomID={props.roomID}></JoinRoomButton>
     </div>
   );
 };

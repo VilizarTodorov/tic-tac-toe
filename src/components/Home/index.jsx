@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   X: "empty",
   O: "empty",
   owner: "",
+  guest: "",
   isGameDone: false,
   message: "X’s turn",
   winner: "empty",
@@ -45,8 +46,8 @@ class Home extends React.Component {
     return (
       <div className="App-home-page App-page">
         <div className="page-content">
-          <h1 className='page-title'>Welcome to Tic Tac Toe</h1>
-          <h2 className='secondary-title'>Create a room</h2>
+          <h1 className="page-title">Welcome to Tic Tac Toe</h1>
+          <h2 className="secondary-title">Create a room</h2>
           <form onSubmit={this.createRoom} className="home-form page-form">
             <input
               id="roomName"

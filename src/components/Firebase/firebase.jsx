@@ -40,6 +40,7 @@ class Firebase {
 
   createRoomEntry = () => this.firestore.collection(this.roomsCollection).doc();
   getRoomEntry = (id) => this.firestore.collection(this.roomsCollection).doc(id);
+  getRoom = (id) => this.firestore.collection(this.roomsCollection).doc(id).get();
   updateRoomEntry = (id,room) => this.firestore.collection(this.roomsCollection).doc(id).update({...room});
   getAllRooms = () => this.firestore.collection(this.roomsCollection).get();
 }
