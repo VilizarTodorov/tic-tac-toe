@@ -16,7 +16,16 @@ const ResetPassword = React.lazy(() => import("../ResetPassword"));
 const Routes = (props) => {
   const location = useLocation();
   const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0, transform: "translate(50%,0%)", position: "absolute" },
+    from: {
+      opacity: 0,
+      transform: "translate(50%,0%)",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
     enter: { opacity: 1, transform: "translate(0%,0%)" },
     leave: { opacity: 0, transform: "translate(-50%,0%)" },
     config: { ...config.gentle },

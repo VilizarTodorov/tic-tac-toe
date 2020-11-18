@@ -1,7 +1,8 @@
 .App-main {
   height: calc(100vh - 70px);
-  display: flex;
+  position: relative;
+  /* display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: hidden; */
 }

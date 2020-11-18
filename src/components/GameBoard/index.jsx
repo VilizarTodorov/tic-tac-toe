@@ -20,7 +20,7 @@ class GameBoard extends React.Component {
   }
 
   componentDidMount() {
-    const roomID = this.getRoomId()
+    const roomID = this.getRoomId();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
         this.setState({
@@ -165,13 +165,11 @@ class GameBoard extends React.Component {
     });
 
     return (
-      <Fragment>
+      <div className="component-container">
         <div>{message}</div>
-        <div className="game">
-          <div className="board">{gameBoard}</div>
-        </div>
+        <div className="board">{gameBoard}</div>
         <button onClick={this.clearBoart}>clearBoart</button>
-      </Fragment>
+      </div>
     );
   }
 }
