@@ -8,7 +8,7 @@ import "./styles.css";
 const INITIAL_STATE = {
   board: [null, null, null, null, null, null, null, null, null],
   isGameDone: false,
-  message: "X’s turn",
+  message: "X’s Turn",
   winner: "empty",
   currentPlayerTurn: "X",
   turns: 0,
@@ -129,7 +129,7 @@ class GameBoard extends React.Component {
         break;
       case "NONE":
       default:
-        newMessage = `${this.state.currentPlayerTurn === "X" ? "O" : "X"}'s Turn`;
+        newMessage = `${this.state.currentPlayerTurn === "X" ? "O" : "X"}’s Turn`;
         break;
     }
 
