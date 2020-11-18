@@ -12,3 +12,14 @@
   box-shadow: 0px 0px 6px 0px #525252;
   overflow: hidden;
 }
+
+.clear-button {
+  border: none;
+  margin-top: 20px;
+  background-color: peachpuff;
+  width: 200px;
+  height: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 6px 0px #525252;
+  outline: none;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import BoardSpace from "../BoardSpace";
 import { HOME } from "../../constants/routes";
 import { withAuthorization } from "../Session";
-import Message from "./GameBoardMessage";
+import Message from "./Message";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -168,7 +168,7 @@ class GameBoard extends React.Component {
       <div className="component-container">
         <Message message={message}></Message>
         <div className="board">{gameBoard}</div>
-        <button onClick={this.clearBoart}>clearBoart</button>
+        <button className='clear-button' onClick={this.clearBoart}>Clear Board</button>
       </div>
     );
   }
