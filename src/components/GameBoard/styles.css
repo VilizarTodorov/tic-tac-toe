@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: darkblue;
+  background-color: peachpuff;
   width: 400px;
   height: 400px;
   top: 0;
   left: 0;
   border-radius: 10px;
+  box-shadow: 0px 0px 6px 0px #525252;
   overflow: hidden;
 }

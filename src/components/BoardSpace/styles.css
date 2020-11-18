@@ -1,19 +1,11 @@
 .board-space {
   width: 33%;
   height: 33%;
-  border: 1px solid #ffe600;
+  border: 1px solid darkblue;
   background-color: transparent;
   color: wheat;
   outline: none;
   position: relative;
-}
-
-.board-space:hover {
-  background-color: black;
-}
-
-.board-space.disabled:hover {
-  background-color: darkblue;
 }
 
 .board-space:nth-child(-n + 3) {

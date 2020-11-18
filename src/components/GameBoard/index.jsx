@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import BoardSpace from "../BoardSpace";
 import { HOME } from "../../constants/routes";
 import { withAuthorization } from "../Session";
+import Message from "./GameBoardMessage";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -19,6 +20,7 @@ class GameBoard extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  
   componentDidMount() {
     const roomID = this.getRoomId();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
@@ -150,9 +152,7 @@ class GameBoard extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const { board, message } = this.state;
-
     const gameBoard = board.map((space, index) => {
       return (
         <BoardSpace
@@ -166,7 +166,7 @@ class GameBoard extends React.Component {
 
     return (
       <div className="component-container">
-        <div>{message}</div>
+        <Message message={message}></Message>
         <div className="board">{gameBoard}</div>
         <button onClick={this.clearBoart}>clearBoart</button>
       </div>
