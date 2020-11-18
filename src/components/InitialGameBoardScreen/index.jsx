@@ -52,7 +52,7 @@ class InitialGameBoardScreen extends React.Component {
 
   chooseX = () => {
     if (this.state.hasChosenO) {
-      alert("You have already chosen O");
+      alert("You already chose O");
       return;
     }
 
