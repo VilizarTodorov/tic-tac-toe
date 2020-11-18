@@ -20,7 +20,6 @@
 
 @media (max-width: 599px) {
   .App-navigation {
-    display: flex;
     flex-direction: column;
     position: absolute;
     top: 100%;

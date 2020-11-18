@@ -1,9 +1,10 @@
 import React from "react";
 import { withAuthorization } from "../Session";
-import GameBoard from "../GameBoard";
-import InitialGameBoardScreen from "../InitialGameBoardScreen";
 import { Transition } from "react-spring/renderprops";
 import "./styles.css";
+
+const GameBoard = React.lazy(() => import("../GameBoard"));
+const InitialGameBoardScreen = React.lazy(() => import("../InitialGameBoardScreen"));
 
 const INITIAL_STATE = {
   component: [],
@@ -21,7 +22,7 @@ class GameRoom extends React.Component {
 
   startGame = () => {
     this.setState({ component: [] }, () =>
-      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 250)
+      setTimeout(() => this.setState({ component: <GameBoard></GameBoard> }), 300)
     );
   };
 
@@ -39,7 +40,7 @@ class GameRoom extends React.Component {
           }}
           enter={{ transform: "rotateY(0deg) rotateX(0)" }}
           leave={{ transform: "rotateY(90deg) rotateX(-90deg)" }}
-          config={{ duration: 250 }}
+          config={{ duration: 300 }}
         >
           {(component) => (props) => <div style={props}>{component}</div>}
         </Transition>

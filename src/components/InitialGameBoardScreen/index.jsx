@@ -3,9 +3,15 @@ import { HOME } from "../../constants/routes";
 import { withAuthorization } from "../Session";
 import "./styles.css";
 
+const INITIAL_STATE = {
+  hasChosenX: false,
+  hasChosenO: false,
+};
+
 class InitialGameBoardScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { ...INITIAL_STATE };
   }
 
   componentDidMount() {
@@ -17,6 +23,14 @@ class InitialGameBoardScreen extends React.Component {
             ...doc.data(),
           },
           () => {
+            if (this.state.X !== "empty" && this.state.X === this.props.user.uid) {
+              this.setState({ hasChosenX: true });
+            }
+
+            if (this.state.O !== "empty" && this.state.O === this.props.user.uid) {
+              this.setState({ hasChosenO: true });
+            }
+
             if (this.state.X !== "empty" && this.state.O !== "empty") {
               this.props.startGame();
             }
@@ -37,7 +51,18 @@ class InitialGameBoardScreen extends React.Component {
   };
 
   chooseX = () => {
-    if (this.state.X === this.props.user.uid || this.state.O === this.props.user.uid) {
+    if (this.state.hasChosenO) {
+      alert("You have already chosen O");
+      return;
+    }
+
+    if (this.state.X !== "empty" && this.state.hasChosenX === false) {
+      alert("X is already taken");
+      return;
+    }
+
+    if (this.state.X !== "empty" && this.state.hasChosenX) {
+      alert("You have already chosen X");
       return;
     }
 
@@ -48,7 +73,18 @@ class InitialGameBoardScreen extends React.Component {
   };
 
   chooseO = () => {
-    if (this.state.X === this.props.user.uid || this.state.O === this.props.user.uid) {
+    if (this.state.hasChosenX) {
+      alert("You already chose X");
+      return;
+    }
+
+    if (this.state.O !== "empty" && this.state.hasChosenO === false) {
+      alert("O is already taken");
+      return;
+    }
+
+    if (this.state.O !== "empty" && this.state.hasChosenO) {
+      alert("You have already chosen X");
       return;
     }
 
@@ -59,11 +95,14 @@ class InitialGameBoardScreen extends React.Component {
   };
 
   render() {
+    const { hasChosenX, hasChosenO } = this.state;
+
     return (
       <div className="initial-board">
-        <div onClick={this.chooseX} className="container">
+        <div className="container">
           <svg
-            className="x"
+            onClick={this.chooseX}
+            className={`x ${hasChosenX ? "chosen" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             x="0px"
@@ -76,9 +115,10 @@ class InitialGameBoardScreen extends React.Component {
             <line className="x__line x__line-1" x1="41.6" y1="10.4" x2="10" y2="41.2" />
           </svg>
         </div>
-        <div className="container" onClick={this.chooseO}>
+        <div className="container">
           <svg
-            className="o"
+            onClick={this.chooseO}
+            className={`o ${hasChosenO ? "chosen" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             x="0px"

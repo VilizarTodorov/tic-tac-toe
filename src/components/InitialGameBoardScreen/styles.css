@@ -32,5 +32,13 @@
 }
 
 .initial-board .o__line:hover {
-  stroke: #4fc4b2;
+  stroke: #43c2af;
+}
+
+.x.chosen .x__line {
+  stroke: #f05483;
+}
+
+.o.chosen .o__line {
+  stroke: #43c2af;
 }
