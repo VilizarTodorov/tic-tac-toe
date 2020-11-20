@@ -3,7 +3,7 @@ import "./styles.css";
 
 const Message = (props) => {
   return (
-    <div className={`message ${props.message === "X’s Turn" ? 'yes':'no'}`}>
+    <div className={`message ${props.message === "X’s Turn" || props.message === 'O WINS' ? 'yes':'no'}`}>
       <p>{props.message}</p>
     </div>
   );

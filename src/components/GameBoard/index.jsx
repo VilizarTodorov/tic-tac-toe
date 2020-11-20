@@ -3,6 +3,7 @@ import BoardSpace from "../BoardSpace";
 import { HOME } from "../../constants/routes";
 import { withAuthorization } from "../Session";
 import Message from "./Message";
+import Controls from "./Controls";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -20,7 +21,6 @@ class GameBoard extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  
   componentDidMount() {
     const roomID = this.getRoomId();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
@@ -151,8 +151,23 @@ class GameBoard extends React.Component {
       .catch((err) => console.log(err));
   };
 
+  kickPlayer = () => {
+    console.log("kick player");
+  };
+
+  leaveGame = () => {
+    console.log("leave game");
+  };
+
+  rematch = () => {
+    console.log("rematch");
+  };
+
   render() {
-    const { board, message } = this.state;
+    const { board, message, owner, guest,isGameDone } = this.state;
+
+    const isOwner = this.props.user.uid === owner;
+
     const gameBoard = board.map((space, index) => {
       return (
         <BoardSpace
@@ -168,7 +183,18 @@ class GameBoard extends React.Component {
       <div className="component-container">
         <Message message={message}></Message>
         <div className="board">{gameBoard}</div>
-        <button className='clear-button' onClick={this.clearBoart}>Clear Board</button>
+        <Controls
+          owner={owner}
+          guest={guest}
+          isOwner={isOwner}
+          kickPlayer={this.kickPlayer}
+          leaveGame={this.leaveGame}
+          isGameDone={isGameDone}
+          rematch={this.rematch}
+        ></Controls>
+        <button className="clear-button" onClick={this.clearBoart}>
+          Clear Board
+        </button>
       </div>
     );
   }
