@@ -6,9 +6,8 @@ const JoinRoomButton = (props) => {
     props.firebase
       .getRoom(props.roomID)
       .then((doc) => {
-        const { guest } = doc.data();
-        if (!guest) {
-          props.firebase.updateRoomEntry(props.roomID, { guest: props.user.uid });
+        const { guest, owner } = doc.data();
+        if (!guest || guest === props.user.uid || props.user.uid === owner) {
           props.history.push(`/rooms/${props.roomID}`);
           return;
         }

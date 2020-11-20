@@ -1,6 +1,6 @@
 import React from "react";
 import BoardSpace from "../BoardSpace";
-import { HOME } from "../../constants/routes";
+import { HOME, ROOMS } from "../../constants/routes";
 import { withAuthorization } from "../Session";
 import Message from "./Message";
 import Controls from "./Controls";
@@ -25,6 +25,12 @@ class GameBoard extends React.Component {
     const roomID = this.getRoomId();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
+        const { owner, guest } = doc.data();
+
+        if (this.props.user.uid !== owner && this.props.user.uid !== guest) {
+          this.props.history.replace(ROOMS)
+        }
+
         this.setState({
           ...doc.data(),
         });
@@ -152,7 +158,7 @@ class GameBoard extends React.Component {
   };
 
   removeGuest = (roomID) => {
-    const symbol = this.state.guest === "X" ? "X" : "O";
+    const symbol = this.state.guest === this.state.X ? "X" : "O";
     const updateObj = { [symbol]: "empty", guest: "" };
 
     this.props.firebase

@@ -1,5 +1,5 @@
 import React from "react";
-import { HOME } from "../../constants/routes";
+import { HOME, ROOMS } from "../../constants/routes";
 import { withAuthorization } from "../Session";
 import "./styles.css";
 
@@ -18,6 +18,18 @@ class InitialGameBoardScreen extends React.Component {
     const roomID = this.getRoomID();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
+        const { owner, guest } = doc.data();
+
+        if(guest !== "" && guest !== this.props.user.uid){
+          this.props.history.replace(ROOMS)
+        }
+
+        if (guest === "" && this.props.user.uid !== owner) {
+          this.props.firebase.updateRoomEntry(roomID, { guest: this.props.user.uid });
+        }
+
+
+
         this.setState(
           {
             ...doc.data(),
@@ -98,7 +110,7 @@ class InitialGameBoardScreen extends React.Component {
     const { hasChosenX, hasChosenO } = this.state;
 
     return (
-      <div className='component-container'>
+      <div className="component-container">
         <div className="initial-board">
           <div className="svg-container">
             <svg
