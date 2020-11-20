@@ -13,6 +13,8 @@ const INITIAL_STATE = {
   winner: "empty",
   currentPlayerTurn: "X",
   turns: 0,
+  ownerWantsRematch: false,
+  guestWantsRematch: false,
 };
 
 class GameBoard extends React.Component {
@@ -25,10 +27,17 @@ class GameBoard extends React.Component {
     const roomID = this.getRoomId();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
-        const { owner, guest } = doc.data();
+        const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
+
+        if (isGameDone) {
+          if ((ownerWantsRematch && guestWantsRematch)) {
+            const { X, O } = doc.data();
+            this.clearBoart(X, O);
+          }
+        }
 
         if (this.props.user.uid !== owner && this.props.user.uid !== guest) {
-          this.props.history.replace(ROOMS)
+          this.props.history.replace(ROOMS);
         }
 
         this.setState({
@@ -48,9 +57,11 @@ class GameBoard extends React.Component {
     return this.props.match.params.room;
   };
 
-  clearBoart = () => {
+  clearBoart = (oldX, oldO) => {
     const roomID = this.getRoomId();
-    this.setState({ ...INITIAL_STATE }, () => this.props.firebase.updateRoomEntry(roomID, this.state));
+    this.setState({ ...INITIAL_STATE }, () =>
+      this.props.firebase.updateRoomEntry(roomID, { ...this.state, X: oldO, O: oldX })
+    );
   };
 
   checkBoard = (board, symbol) => {
@@ -198,7 +209,15 @@ class GameBoard extends React.Component {
   };
 
   rematch = () => {
-    console.log("rematch");
+    const roomID = this.getRoomId();
+
+    if (this.props.user.uid === this.state.guest) {
+      this.props.firebase.updateRoomEntry(roomID, { guestWantsRematch: true });
+    }
+
+    if (this.props.user.uid === this.state.owner) {
+      this.props.firebase.updateRoomEntry(roomID, { ownerWantsRematch: true });
+    }
   };
 
   render() {

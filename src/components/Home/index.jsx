@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   winner: "empty",
   currentPlayerTurn: "X",
   turns: 0,
+  ownerWantsRematch:false,
+  guestWantsRematch:false
 };
 
 class Home extends React.Component {
