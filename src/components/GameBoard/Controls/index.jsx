@@ -5,11 +5,11 @@ const Controls = (props) => {
   return (
     <div className="controls">
       <div className="users">
-        <p className="user owner">{props.owner}</p>
+        <p className={`user owner ${props.isOwnerX ? "player-x" : "player-o"}`}>{props.owner}</p>
         <div className="guest-controls">
-          <p className="user guest">{props.guest}</p>
+          <p className={`user guest ${props.isOwnerX ? "player-o" : "player-x"}`}>{props.guest}</p>
           {props.isOwner && (
-            <button className="control-button kick-button" onClick={props.kickPlayer}>
+            <button className="control-button kick-button" onClick={props.kickGuest}>
               Kick
             </button>
           )}
@@ -24,7 +24,7 @@ const Controls = (props) => {
           Rematch
         </button>
 
-        <button className="control-button leave-button" onClick={props.leaveGame}>
+        <button onClick={props.leaveGame} className="control-button leave-button" onClick={props.leaveGame}>
           Leave Game
         </button>
       </div>

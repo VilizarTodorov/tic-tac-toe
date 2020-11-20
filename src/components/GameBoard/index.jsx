@@ -151,12 +151,44 @@ class GameBoard extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  kickPlayer = () => {
-    console.log("kick player");
+  removeGuest = (roomID) => {
+    const symbol = this.state.guest === "X" ? "X" : "O";
+    const updateObj = { [symbol]: "empty", guest: "" };
+
+    this.props.firebase
+      .updateRoomEntry(roomID, updateObj)
+      .then(console.log("guest removed"))
+      .catch((err) => console.log(err));
   };
 
-  leaveGame = () => {
-    console.log("leave game");
+  ownerLeaveGame = (roomID) => {
+    this.props.firebase
+      .deleteRoom(roomID)
+      .then(console.log("room deleted successfully"))
+      .catch((error) => console.log(error));
+  };
+
+  guestLeaveGame = (roomID) => {
+    this.removeGuest(roomID);
+  };
+
+  kickGuest = () => {
+    const roomID = this.getRoomId();
+    this.removeGuest(roomID);
+  };
+
+  leaveGameRoom = () => {
+    const roomID = this.getRoomId();
+
+    if (this.props.user.uid === this.state.owner) {
+      this.ownerLeaveGame(roomID);
+      return;
+    }
+
+    if (this.props.user.uid === this.state.guest) {
+      this.guestLeaveGame(roomID);
+      return;
+    }
   };
 
   rematch = () => {
@@ -164,9 +196,11 @@ class GameBoard extends React.Component {
   };
 
   render() {
-    const { board, message, owner, guest,isGameDone } = this.state;
+    const { board, message, owner, guest, isGameDone, X } = this.state;
 
     const isOwner = this.props.user.uid === owner;
+
+    const isOwnerX = owner === X;
 
     const gameBoard = board.map((space, index) => {
       return (
@@ -191,6 +225,9 @@ class GameBoard extends React.Component {
           leaveGame={this.leaveGame}
           isGameDone={isGameDone}
           rematch={this.rematch}
+          isOwnerX={isOwnerX}
+          leaveGame={this.leaveGameRoom}
+          kickGuest={this.kickGuest}
         ></Controls>
         <button className="clear-button" onClick={this.clearBoart}>
           Clear Board
