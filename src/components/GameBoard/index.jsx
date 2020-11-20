@@ -30,7 +30,7 @@ class GameBoard extends React.Component {
         const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
 
         if (isGameDone) {
-          if ((ownerWantsRematch && guestWantsRematch)) {
+          if (ownerWantsRematch && guestWantsRematch) {
             const { X, O } = doc.data();
             this.clearBoart(X, O);
           }
@@ -254,9 +254,6 @@ class GameBoard extends React.Component {
           leaveGame={this.leaveGameRoom}
           kickGuest={this.kickGuest}
         ></Controls>
-        <button className="clear-button" onClick={this.clearBoart}>
-          Clear Board
-        </button>
       </div>
     );
   }

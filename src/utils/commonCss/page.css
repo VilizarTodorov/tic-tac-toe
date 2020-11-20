@@ -9,3 +9,21 @@
   flex-direction: column;
   justify-content: space-evenly;
 }
+
+@media (max-width: 376px) {
+  .App-page {
+    width: 350px;
+  }
+}
+
+@media (max-width: 321px) {
+  .App-page {
+    width: 310px;
+  }
+}
+
+@media (max-width: 281px) {
+  .App-page {
+    width: 270px;
+  }
+}
