@@ -1,10 +1,7 @@
 .controls {
   display: flex;
-  width: 400px;
-  height: 90px;
   justify-content: space-between;
   background-color: peachpuff;
-  margin-top: 15px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 6px 0px #525252;
@@ -12,7 +9,6 @@
 
 .users {
   transition: all 0.4s ease-in-out;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -54,13 +50,13 @@
 }
 
 .button-container {
-  width: 89px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.button-container .leave-button,.rematch-button{
+.button-container .leave-button,
+.rematch-button {
   height: 31px;
 }
 
@@ -81,4 +77,37 @@
   height: 28px;
   border: 1px solid darkblue;
   opacity: 1;
+}
+
+@media (min-width: 275px) {
+  .controls {
+    width: 270px;
+    flex-direction: column;
+    height: 165px;
+  }
+
+  .users {
+    height: 50%;
+  }
+  .button-container {
+    width: auto;
+    height: 45%;
+  }
+}
+
+@media (min-width: 599px) {
+  .controls {
+    width: 400px;
+    height: 90px;
+    flex-direction: row;
+  }
+
+  .users {
+    height: auto;
+  }
+
+  .button-container {
+    width: 89px;
+    height: auto;
+  }
 }

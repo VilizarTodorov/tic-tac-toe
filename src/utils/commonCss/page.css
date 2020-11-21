@@ -1,5 +1,4 @@
 .App-page {
-  width: 380px;
   padding: 10px;
   display: flex;
   background-color: #ffdab9;
@@ -10,20 +9,26 @@
   justify-content: space-evenly;
 }
 
-@media (max-width: 376px) {
+@media (min-width: 275px) {
   .App-page {
-    width: 350px;
+    width: 270px;
   }
 }
 
-@media (max-width: 321px) {
+@media (min-width: 315px) {
   .App-page {
     width: 310px;
   }
 }
 
-@media (max-width: 281px) {
+@media (min-width: 355px) {
   .App-page {
-    width: 270px;
+    width: 350px;
+  }
+}
+
+@media (min-width: 599px) {
+  .App-page {
+    width: 380px;
   }
 }

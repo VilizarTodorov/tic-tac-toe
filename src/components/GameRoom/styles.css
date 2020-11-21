@@ -1,5 +1,34 @@
 .game {
-  width: 600px;
-  height: 600px;
   position: relative;
+}
+
+@media (min-width: 275px) {
+  .game {
+    width: 270px;
+  }
+}
+
+@media (min-width: 599px) {
+  .game {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+@media (max-height: 569px) {
+  .game {
+    height: 100%;
+  }
+}
+
+@media(min-height: 569px){
+  .game{
+    height: 90%;
+  }
+}
+
+@media(min-height: 670px){
+  .game{
+    height: 600px;
+  }
 }

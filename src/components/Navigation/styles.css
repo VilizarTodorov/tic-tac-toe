@@ -1,7 +1,3 @@
-.App-navigation {
-  display: flex;
-}
-
 .nav-option {
   list-style: none;
 }
@@ -15,6 +11,10 @@
 }
 
 @media (min-width: 599px) {
+  .App-navigation {
+    display: flex;
+  }
+  
   .nav-option + .nav-option {
     margin-left: 15px;
   }
@@ -44,7 +44,6 @@
     padding: 5px;
     border-bottom: 1px solid darkblue;
   }
-
 
   .menu-icon {
     display: block;
