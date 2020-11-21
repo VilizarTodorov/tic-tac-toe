@@ -27,7 +27,6 @@ class BaseSignUpForm extends React.Component {
     const dbUSer = {
       username: username,
       wins: 0,
-      draws: 0,
       losses: 0,
       points: 0,
     };

@@ -21,7 +21,23 @@ const INITIAL_STATE = {
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE };
+    this.state = {
+      ...INITIAL_STATE,
+      ownerDbEntry: {
+        username: "",
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        points: 0,
+      },
+      guestDbEntry: {
+        username: "",
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        points: 0,
+      },
+    };
   }
 
   componentDidMount() {
@@ -30,6 +46,18 @@ class GameBoard extends React.Component {
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
         const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
+
+        if (!this.state.ownerDbEntry.username) {
+          this.props.firebase
+            .getUserEntry(owner)
+            .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+        }
+
+        if (!this.state.guestDbEntry.username) {
+          this.props.firebase
+            .getUserEntry(guest)
+            .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
+        }
 
         if (isGameDone) {
           if (ownerWantsRematch && guestWantsRematch) {
@@ -61,9 +89,7 @@ class GameBoard extends React.Component {
 
   clearBoart = (oldX, oldO) => {
     const roomID = this.getRoomId();
-    this.setState({ ...INITIAL_STATE }, () =>
-      this.props.firebase.updateRoomEntry(roomID, { ...this.state, X: oldO, O: oldX })
-    );
+    this.props.firebase.updateRoomEntry(roomID, { ...INITIAL_STATE, X: oldO, O: oldX });
   };
 
   checkBoard = (board, symbol) => {
@@ -164,6 +190,8 @@ class GameBoard extends React.Component {
       winner,
     };
 
+    this.markLossAndWinForPlayers(winner);
+
     this.props.firebase
       .updateRoomEntry(roomID, room)
       .then((x) => console.log("success", x))
@@ -222,8 +250,54 @@ class GameBoard extends React.Component {
     }
   };
 
+  markLossAndWinForPlayers = (winner) => {
+    if (winner !== "empty") {
+      const loserEntry = winner === "X" ? this.state["O"] : this.state["X"];
+      if (loserEntry === this.state.owner) {
+        this.markLoss(this.state.owner, this.state.ownerDbEntry);
+        // this.props.firebase.updateUserEntry(this.state.owner, {
+        //   losses: this.state.ownerDbEntry.losses + 1,
+        //   points: this.state.ownerDbEntry.points - 1,
+        // });
+
+        this.markWin(this.state.guest, this.state.guestDbEntry);
+
+        // this.props.firebase.updateUserEntry(this.state.guest, {
+        //   wins: this.state.guestDbEntry.wins + 1,
+        //   points: this.state.guestDbEntry.points + 1,
+        // });
+      } else {
+        this.markWin(this.state.owner, this.state.ownerDbEntry);
+        // this.props.firebase.updateUserEntry(this.state.guest, {
+        //   losses: this.state.guestDbEntry.losses + 1,
+        //   points: this.state.ownerDbEntry.points - 1,
+        // });
+
+        this.markLoss(this.state.guest, this.state.guestDbEntry);
+        // this.props.firebase.updateUserEntry(this.state.owner, {
+        //   wins: this.state.ownerDbEntry.wins + 1,
+        //   points: this.state.guestDbEntry.points + 1,
+        // });
+      }
+    }
+  };
+
+  markWin = (id, userEntry) => {
+    this.props.firebase.updateUserEntry(id, {
+      wins: userEntry.wins + 1,
+      points: userEntry.points + 1,
+    });
+  };
+
+  markLoss = (id, userEntry) => {
+    this.props.firebase.updateUserEntry(id, {
+      losses: userEntry.losses + 1,
+      points: userEntry.points - 1,
+    });
+  };
+
   render() {
-    const { board, message, owner, guest, isGameDone, X } = this.state;
+    const { board, message, owner, isGameDone, X, ownerDbEntry, guestDbEntry } = this.state;
 
     const isOwner = this.props.user.uid === owner;
 
@@ -252,8 +326,8 @@ class GameBoard extends React.Component {
           {(props) => (
             <div style={props}>
               <Controls
-                owner={owner}
-                guest={guest}
+                owner={ownerDbEntry.username}
+                guest={guestDbEntry.username}
                 isOwner={isOwner}
                 kickPlayer={this.kickPlayer}
                 leaveGame={this.leaveGame}

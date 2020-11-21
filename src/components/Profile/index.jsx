@@ -22,7 +22,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { username, wins, draws, loses, points } = this.state;
+    const { username, wins, draws, losses, points } = this.state;
     return (
       <div className="App-profile-page App-page">
         <div className="page-content">
@@ -30,7 +30,7 @@ class Profile extends React.Component {
           <p>{username}</p>
           <p>{`Wins: ${wins}`}</p>
           <p>{`Draws: ${draws}`}</p>
-          <p>{`Losses: ${loses}`}</p>
+          <p>{`Losses: ${losses}`}</p>
           <p>{`Points: ${points}`}</p>
           <ChangePasswordLink></ChangePasswordLink>
           <SignOut></SignOut>
