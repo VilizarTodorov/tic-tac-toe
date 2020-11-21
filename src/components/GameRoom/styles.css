@@ -8,6 +8,24 @@
   }
 }
 
+@media (min-width: 315px) {
+  .game {
+    width: 310px;
+  }
+}
+
+@media (min-width: 355px) {
+  .game {
+    width: 350px;
+  }
+}
+
+@media (min-width: 410px) {
+  .game {
+    width: 400px;
+  }
+}
+
 @media (min-width: 599px) {
   .game {
     width: 600px;
@@ -15,20 +33,14 @@
   }
 }
 
-@media (max-height: 569px) {
+@media (min-height: 567px) {
   .game {
     height: 100%;
   }
 }
 
-@media(min-height: 569px){
-  .game{
-    height: 90%;
-  }
-}
-
-@media(min-height: 670px){
-  .game{
+@media (min-height: 670px) {
+  .game {
     height: 600px;
   }
 }

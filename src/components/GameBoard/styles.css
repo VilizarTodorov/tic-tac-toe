@@ -18,6 +18,13 @@
   }
 }
 
+@media (min-width: 355px) {
+  .board {
+    width: 310px;
+    height: 310px;
+  }
+}
+
 @media (min-width: 599px) {
   .board {
     width: 400px;

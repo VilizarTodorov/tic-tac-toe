@@ -27,7 +27,7 @@
   }
 }
 
-@media (min-width: 599px) {
+@media (min-width: 410px) {
   .App-page {
     width: 380px;
   }

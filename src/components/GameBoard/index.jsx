@@ -26,14 +26,12 @@ class GameBoard extends React.Component {
       ownerDbEntry: {
         username: "",
         wins: 0,
-        draws: 0,
         losses: 0,
         points: 0,
       },
       guestDbEntry: {
         username: "",
         wins: 0,
-        draws: 0,
         losses: 0,
         points: 0,
       },
@@ -60,6 +58,14 @@ class GameBoard extends React.Component {
         }
 
         if (isGameDone) {
+          this.props.firebase
+            .getUserEntry(guest)
+            .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
+
+          this.props.firebase
+            .getUserEntry(owner)
+            .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+
           if (ownerWantsRematch && guestWantsRematch) {
             const { X, O } = doc.data();
             this.clearBoart(X, O);
@@ -255,29 +261,12 @@ class GameBoard extends React.Component {
       const loserEntry = winner === "X" ? this.state["O"] : this.state["X"];
       if (loserEntry === this.state.owner) {
         this.markLoss(this.state.owner, this.state.ownerDbEntry);
-        // this.props.firebase.updateUserEntry(this.state.owner, {
-        //   losses: this.state.ownerDbEntry.losses + 1,
-        //   points: this.state.ownerDbEntry.points - 1,
-        // });
 
         this.markWin(this.state.guest, this.state.guestDbEntry);
-
-        // this.props.firebase.updateUserEntry(this.state.guest, {
-        //   wins: this.state.guestDbEntry.wins + 1,
-        //   points: this.state.guestDbEntry.points + 1,
-        // });
       } else {
         this.markWin(this.state.owner, this.state.ownerDbEntry);
-        // this.props.firebase.updateUserEntry(this.state.guest, {
-        //   losses: this.state.guestDbEntry.losses + 1,
-        //   points: this.state.ownerDbEntry.points - 1,
-        // });
 
         this.markLoss(this.state.guest, this.state.guestDbEntry);
-        // this.props.firebase.updateUserEntry(this.state.owner, {
-        //   wins: this.state.ownerDbEntry.wins + 1,
-        //   points: this.state.guestDbEntry.points + 1,
-        // });
       }
     }
   };

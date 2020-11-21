@@ -33,12 +33,14 @@ class Firebase {
     this.usersCollection = "users";
   }
 
+  //user account functions
   signInWithEmailAddress = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
   createUserWithEmail = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
   passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
   updatePassword = (password) => this.auth.currentUser.updatePassword(password);
   signOutUser = () => this.auth.signOut();
 
+  //rooms functions
   createRoomEntry = () => this.firestore.collection(this.roomsCollection).doc();
   getRoomEntry = (id) => this.firestore.collection(this.roomsCollection).doc(id);
   getRoom = (id) => this.firestore.collection(this.roomsCollection).doc(id).get();
@@ -50,10 +52,9 @@ class Firebase {
   getAllRooms = () => this.firestore.collection(this.roomsCollection).get();
   deleteRoom = (id) => this.firestore.collection(this.roomsCollection).doc(id).delete();
 
+  //user entry functions
   createUserEntry = (uid, user) => this.firestore.collection(this.usersCollection).doc(uid).set(user);
-
   getUserEntry = (uid) => this.firestore.collection(this.usersCollection).doc(uid).get();
-
   updateUserEntry = (uid, user) =>
     this.firestore
       .collection(this.usersCollection)

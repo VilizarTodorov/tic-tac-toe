@@ -1,6 +1,4 @@
 .initial-board {
-  width: 400px;
-  height: 400px;
   background-color: #ffdab9;
   top: 0;
   left: 0;
@@ -40,4 +38,32 @@
 
 .o.chosen .o__line {
   stroke: #43c2af;
+}
+
+@media (min-width: 275px) {
+  .initial-board {
+    width: 270px;
+    height: 270px;
+  }
+}
+
+@media (min-width: 315px) {
+  .initial-board {
+    width: 310px;
+    height: 310px;
+  }
+}
+
+@media (min-width: 355px) {
+  .initial-board {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 410px) {
+  .initial-board {
+    width: 400px;
+    height: 400px;
+  }
 }

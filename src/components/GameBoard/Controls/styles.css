@@ -37,6 +37,10 @@
   display: flex;
 }
 
+.kick-button{
+  background-color: yellow;
+}
+
 .control-button {
   padding: 5px;
   outline: none;
@@ -47,13 +51,8 @@
   transition: all 0.4s ease-in-out;
 }
 
-.control-button:hover{
+.control-button:hover {
   filter: brightness(1.2);
-}
-
-.kick-button {
-  margin-left: 5px;
-  background-color: yellow;
 }
 
 .button-container {
@@ -100,6 +99,17 @@
     width: auto;
     height: 45%;
   }
+
+  .kick-button {
+    margin: 0 auto 0 auto;
+    flex-grow: 0.8;
+  }
+}
+
+@media (min-width: 355px) {
+  .controls {
+    width: 310px;
+  }
 }
 
 @media (min-width: 599px) {
@@ -116,5 +126,9 @@
   .button-container {
     width: 89px;
     height: auto;
+  }
+
+  .kick-button {
+    margin-left: 5px;
   }
 }
