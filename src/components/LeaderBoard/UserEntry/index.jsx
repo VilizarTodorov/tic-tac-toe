@@ -7,6 +7,7 @@ const UserEntry = (props) => {
       <p>{props.username}</p>
       <p>Wins: {props.wins}</p>
       <p>Losses: {props.losses}</p>
+      <p>Points: {props.points}</p>
     </div>
   );
 };

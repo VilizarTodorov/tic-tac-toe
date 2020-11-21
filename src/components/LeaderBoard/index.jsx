@@ -30,7 +30,7 @@ class LeaderBoard extends React.Component {
     const usersList = users.map((user, index) => {
       return (
         <li key={index}>
-          <UserEntry username={user.username} wins={user.wins} losses={user.losses}></UserEntry>
+          <UserEntry username={user.username} wins={user.wins} losses={user.losses} points={user.points}></UserEntry>
         </li>
       );
     });
