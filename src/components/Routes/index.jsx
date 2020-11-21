@@ -12,6 +12,7 @@ const GameRoom = React.lazy(() => import("../GameRoom"));
 const Profile = React.lazy(() => import("../Profile"));
 const ChangePassword = React.lazy(() => import("../ChangePassword"));
 const ResetPassword = React.lazy(() => import("../ResetPassword"));
+const LeaderBoard = React.lazy(() => import("../LeaderBoard"));
 
 const Routes = (props) => {
   const location = useLocation();
@@ -67,6 +68,10 @@ const Routes = (props) => {
 
               <Route exact path={ROUTES.RESET_PASSWORD}>
                 <ResetPassword />
+              </Route>
+
+              <Route exact path={ROUTES.LEADER_BOARD}>
+                <LeaderBoard />
               </Route>
             </Switch>
           </Suspense>

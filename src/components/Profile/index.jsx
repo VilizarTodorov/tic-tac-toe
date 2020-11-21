@@ -2,6 +2,7 @@ import React from "react";
 import SignOut from "../SignOut";
 import { withAuthorization } from "../Session";
 import { ChangePasswordLink } from "../ChangePassword";
+import './styles.css'
 
 const INITIAL_STATE = {
   username: "",
@@ -25,7 +26,7 @@ class Profile extends React.Component {
     const { username, wins, draws, losses, points } = this.state;
     return (
       <div className="App-profile-page App-page">
-        <div className="page-content">
+        <div className="App-profile page-content">
           <h1>Profile Information</h1>
           <p>{username}</p>
           <p>{`Wins: ${wins}`}</p>
