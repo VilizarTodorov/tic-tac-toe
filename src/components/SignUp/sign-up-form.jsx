@@ -28,7 +28,7 @@ class BaseSignUpForm extends React.Component {
       username: username,
       wins: 0,
       draws: 0,
-      loses: 0,
+      losses: 0,
       points: 0,
     };
     this.props.firebase

@@ -51,6 +51,14 @@ class Firebase {
   deleteRoom = (id) => this.firestore.collection(this.roomsCollection).doc(id).delete();
 
   createUserEntry = (uid, user) => this.firestore.collection(this.usersCollection).doc(uid).set(user);
+
+  getUserEntry = (uid) => this.firestore.collection(this.usersCollection).doc(uid).get();
+
+  updateUserEntry = (uid, user) =>
+    this.firestore
+      .collection(this.usersCollection)
+      .doc(uid)
+      .update({ ...user });
 }
 
 export default Firebase;

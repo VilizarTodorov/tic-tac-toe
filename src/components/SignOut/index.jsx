@@ -3,10 +3,14 @@ import { withFirebase } from "../Firebase";
 
 const SignOut = (props) => {
   const onClick = () => {
-      props.firebase.signOutUser();
+    props.firebase.signOutUser();
   };
 
-  return <button onClick={onClick}>Sign Out</button>;
+  return (
+    <button className="submit-button" onClick={onClick}>
+      Sign Out
+    </button>
+  );
 };
 
 export default withFirebase(SignOut);
