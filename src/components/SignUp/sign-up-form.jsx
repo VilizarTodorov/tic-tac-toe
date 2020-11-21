@@ -23,11 +23,18 @@ class BaseSignUpForm extends React.Component {
   };
 
   onSubmit = (event) => {
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
+    const dbUSer = {
+      username: username,
+      wins: 0,
+      draws: 0,
+      loses: 0,
+      points: 0,
+    };
     this.props.firebase
       .createUserWithEmail(email, password)
-      .then((user) => {
-        this.setState({ ...INITIAL_STATE });
+      .then(({ user }) => {
+        this.props.firebase.createUserEntry(user.uid, dbUSer);
         this.props.history.replace(HOME);
       })
       .catch((error) => {

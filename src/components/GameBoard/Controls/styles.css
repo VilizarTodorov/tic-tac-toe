@@ -21,8 +21,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  border: 1px solid darkblue;
   border-radius: 10px;
+  box-shadow: 0px 0px 6px 0px #525252;
 }
 
 .player-x {
@@ -40,8 +40,15 @@
 .control-button {
   padding: 5px;
   outline: none;
-  border: 1px solid darkblue;
+  border: none;
   border-radius: 10px;
+  box-shadow: 0px 0px 6px 0px #525252;
+  filter: brightness(0.8);
+  transition: all 0.4s ease-in-out;
+}
+
+.control-button:hover{
+  filter: brightness(1.2);
 }
 
 .kick-button {
@@ -65,6 +72,7 @@
 }
 
 .rematch-button {
+  outline: none;
   border: none;
   background-color: greenyellow;
   transition: all 0.4s ease-in-out;
@@ -75,7 +83,6 @@
 
 .visible {
   height: 28px;
-  border: 1px solid darkblue;
   opacity: 1;
 }
 

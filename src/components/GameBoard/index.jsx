@@ -5,6 +5,7 @@ import { withAuthorization } from "../Session";
 import Message from "./Message";
 import Controls from "./Controls";
 import "./styles.css";
+import { config, Spring } from "react-spring/renderprops";
 
 const INITIAL_STATE = {
   board: [null, null, null, null, null, null, null, null, null],
@@ -242,18 +243,28 @@ class GameBoard extends React.Component {
       <div className="component-container">
         <Message message={message}></Message>
         <div className="board">{gameBoard}</div>
-        <Controls
-          owner={owner}
-          guest={guest}
-          isOwner={isOwner}
-          kickPlayer={this.kickPlayer}
-          leaveGame={this.leaveGame}
-          isGameDone={isGameDone}
-          rematch={this.rematch}
-          isOwnerX={isOwnerX}
-          leaveGame={this.leaveGameRoom}
-          kickGuest={this.kickGuest}
-        ></Controls>
+        <Spring
+          from={{ transform: "scale(0)" }}
+          to={{ transform: "scale(1)" }}
+          config={{ delay: 400, ...config.wobbly }}
+        >
+          {(props) => (
+            <div style={props}>
+              <Controls
+                owner={owner}
+                guest={guest}
+                isOwner={isOwner}
+                kickPlayer={this.kickPlayer}
+                leaveGame={this.leaveGame}
+                isGameDone={isGameDone}
+                rematch={this.rematch}
+                isOwnerX={isOwnerX}
+                leaveGame={this.leaveGameRoom}
+                kickGuest={this.kickGuest}
+              ></Controls>
+            </div>
+          )}
+        </Spring>
       </div>
     );
   }
