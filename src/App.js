@@ -9,6 +9,8 @@ import "./utils/commonCss/form-input.css";
 import "./utils/commonCss/submit-button.css";
 import "./utils/commonCss/form-link.css";
 import "./utils/commonCss/component-container.css";
+import "./utils/commonCss/o.css"
+import "./utils/commonCss/x.css"
 
 function App(props) {
   return (
