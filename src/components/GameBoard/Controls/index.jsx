@@ -24,7 +24,7 @@ const Controls = (props) => {
           Rematch
         </button>
 
-        <button onClick={props.leaveGame} className="control-button leave-button" onClick={props.leaveGame}>
+        <button onClick={props.leaveGame} className="control-button leave-button" >
           Leave Game
         </button>
       </div>

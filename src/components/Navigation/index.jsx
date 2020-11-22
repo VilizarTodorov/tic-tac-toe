@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import "./styles.css";
@@ -56,6 +56,12 @@ class Navigation extends React.Component {
           <li className="nav-option">
             <Link to={ROUTES.LEADER_BOARD}>
               <p>Leader Board</p>
+            </Link>
+          </li>
+
+          <li className="nav-option">
+            <Link to={ROUTES.SIGN_IN}>
+              <p>SIGN_IN</p>
             </Link>
           </li>
 

@@ -155,28 +155,23 @@ class GameBoard extends React.Component {
 
     switch (checkBoardOutcome) {
       case "XWINS":
-        {
-          winner = "X";
-          newMessage = "X WINS";
-          newIsGameDone = true;
-        }
+        winner = "X";
+        newMessage = "X WINS";
+        newIsGameDone = true;
 
         break;
 
       case "OWINS":
-        {
-          winner = "O";
-          newMessage = "O WINS";
-          newIsGameDone = true;
-        }
+        winner = "O";
+        newMessage = "O WINS";
+        newIsGameDone = true;
 
         break;
 
       case "DRAW":
-        {
-          newMessage = "DRAW!";
-          newIsGameDone = true;
-        }
+        newMessage = "DRAW!";
+        newIsGameDone = true;
+
         break;
       case "NONE":
       default:
@@ -318,8 +313,6 @@ class GameBoard extends React.Component {
                 owner={ownerDbEntry.username}
                 guest={guestDbEntry.username}
                 isOwner={isOwner}
-                kickPlayer={this.kickPlayer}
-                leaveGame={this.leaveGame}
                 isGameDone={isGameDone}
                 rematch={this.rematch}
                 isOwnerX={isOwnerX}

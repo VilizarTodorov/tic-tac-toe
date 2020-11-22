@@ -1,6 +1,4 @@
 import React, { Fragment } from "react";
-import SymbolX from "../SymbolX";
-import SymbolO from "../SymbolO";
 import "./styles.css";
 
 const Logo = (props) => {
