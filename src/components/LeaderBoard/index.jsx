@@ -1,6 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../Session";
-import UserEntry from "./UserEntry";
+import LeaderBoardView from "./LeaderBoardDummyComponent/leader-board-view";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -27,22 +27,7 @@ class LeaderBoard extends React.Component {
   render() {
     const { users } = this.state;
 
-    const usersList = users.map((user, index) => {
-      return (
-        <li key={index}>
-          <UserEntry username={user.username} wins={user.wins} losses={user.losses} points={user.points}></UserEntry>
-        </li>
-      );
-    });
-
-    return (
-      <div className="App-leader-board-page App-page">
-        <div className="page-content">
-          <h1 className="page-title">Leader Board</h1>
-          <ul className="leader-board">{usersList}</ul>
-        </div>
-      </div>
-    );
+    return <LeaderBoardView users={users}></LeaderBoardView>;
   }
 }
 

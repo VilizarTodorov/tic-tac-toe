@@ -1,6 +1,7 @@
 import React from "react";
 import { withAuthorization } from "../Session";
 import * as ROUTES from "../../constants/routes";
+import ChangePasswordFormView from "./ChangePasswordDummyComponent/change-password-form-view";
 
 const INITIAL_STATE = {
   newPassword: "",
@@ -34,37 +35,14 @@ class ChangePasswordForm extends React.Component {
     const { newPassword, repeatNewPassword, error } = this.state;
     const isInvalid = newPassword.length < 6 || newPassword !== repeatNewPassword;
     return (
-      <div className="App-change-password page-content">
-        <h1 className="page-title">Change Password</h1>
-        <form className="change-password-form page-form" onSubmit={this.onSubmit}>
-          <input
-            id="newPassword"
-            name="newPassword"
-            className="password-input form-input"
-            type="password"
-            placeholder="Enter New Password"
-            value={newPassword}
-            onChange={this.onChange}
-            required
-          />
-          <input
-            id="repeatNewPassword"
-            name="repeatNewPassword"
-            className="password-input form-input"
-            type="password"
-            placeholder="Repeat New Password"
-            value={repeatNewPassword}
-            onChange={this.onChange}
-            required
-          />
-
-          <button disabled={isInvalid} className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
-            Change Password
-          </button>
-
-          {error && <p>{error.message}</p>}
-        </form>
-      </div>
+      <ChangePasswordFormView
+        onSubmit={this.onSubmit}
+        onChange={this.onChange}
+        newPassword={newPassword}
+        repeatNewPassword={repeatNewPassword}
+        isInvalid={isInvalid}
+        error={error}
+      ></ChangePasswordFormView>
     );
   }
 }
