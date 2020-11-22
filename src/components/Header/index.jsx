@@ -1,7 +1,6 @@
 import React from 'react'
 import Navigation from '../Navigation'
 import Logo from '../Logo';
-import Profile from '../Profile'
 import './styles.css'
 
 const Header = (props) => {
