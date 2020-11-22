@@ -1,6 +1,5 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import "./styles.css";
 
 const SymbolO = (props) => {
   const springProps = useSpring({
