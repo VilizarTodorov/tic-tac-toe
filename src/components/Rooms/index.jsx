@@ -1,6 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../Session";
-import RoomEntry from "../RoomEntity";
+import RoomsView from "./RoomsDummyComponent/rooms-view";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -18,7 +18,7 @@ class Rooms extends React.Component {
     this.props.firebase
       .getAllRooms()
       .then((snapshot) => {
-        snapshot.forEach((doc) => rooms.push({...doc.data(),id:doc.id}));
+        snapshot.forEach((doc) => rooms.push({ ...doc.data(), id: doc.id }));
       })
       .then(() => this.setState({ rooms }))
       .catch((err) => console.log(err));
@@ -26,22 +26,8 @@ class Rooms extends React.Component {
 
   render() {
     const { rooms } = this.state;
-    const roomsList = rooms.map((room, index) => {
-      return (
-        <li key={index}>
-          <RoomEntry roomName={room.roomName} roomID={room.id}></RoomEntry>
-        </li>
-      );
-    });
 
-    return (
-      <div className="App-rooms-page App-page">
-        <div className="page-content">
-          <h1 className="page-title">Rooms</h1>
-          <ul className="rooms">{roomsList}</ul>
-        </div>
-      </div>
-    );
+    return <RoomsView rooms={rooms}></RoomsView>;
   }
 }
 

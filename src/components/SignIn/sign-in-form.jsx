@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
 import { compose } from "recompose";
+import SignInFormView from "./SignInDummyComponent/sign-in-form-view";
 
 const INITIAL_STATE = {
   email: "",
@@ -46,37 +47,14 @@ class BaseSignInForm extends React.Component {
     const isInvalid = email === "" || password === "";
 
     return (
-      <div className="App-sign-in page-content">
-        <h1 className="page-title">Sign In</h1>
-        <form className="sign-in-form page-form" onSubmit={this.onSubmit}>
-          <input
-            id="email"
-            name="email"
-            className="email-input form-input"
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={this.onChange}
-            required
-          />
-
-          <input
-            id="password"
-            className="password-input form-input"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={this.onChange}
-            required
-          />
-
-          <button disabled={isInvalid} className={`submit-button ${isInvalid ? "disabled" : ""}`} type="submit">
-            Sign In
-          </button>
-          {error && <p>{error.message}</p>}
-        </form>
-      </div>
+      <SignInFormView
+        onSubmit={this.onSubmit}
+        onChange={this.onChange}
+        email={email}
+        password={password}
+        isInvalid={isInvalid}
+        error={error}
+      />
     );
   }
 }

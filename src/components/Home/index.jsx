@@ -1,5 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../Session";
+import HomeView from "./HomeDummyComponent/home-view";
 import "./styles.css";
 
 const INITIAL_STATE = {
@@ -45,34 +46,7 @@ class Home extends React.Component {
   render() {
     const { roomName } = this.state;
     let isInvalid = roomName === "";
-    return (
-      <div className="App-home-page App-page">
-        <div className="page-content">
-          <h1 className="page-title">Welcome to Tic Tac Toe</h1>
-          <h2 className="secondary-title">Create a room</h2>
-          <form onSubmit={this.createRoom} className="home-form page-form">
-            <input
-              id="roomName"
-              name="roomName"
-              className="form-input"
-              type="text"
-              placeholder="Room Name"
-              value={roomName}
-              onChange={this.onChange}
-              required
-            />
-
-            <button
-              disabled={isInvalid}
-              className={`submit-button ${isInvalid ? "disabled" : ""}`}
-              onClick={this.createRoom}
-            >
-              Create room
-            </button>
-          </form>
-        </div>
-      </div>
-    );
+    return <HomeView createRoom={this.createRoom} roomName={roomName} onChange={this.onChange} isInvalid={isInvalid} />;
   }
 }
 
