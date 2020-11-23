@@ -21,7 +21,6 @@ class LeaderBoard extends React.Component {
         snapshot.forEach((doc) => users.push(doc.data()));
       })
       .then(() => this.setState({ users }))
-      .catch((error) => console.log(error));
   }
 
   render() {

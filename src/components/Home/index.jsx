@@ -40,7 +40,9 @@ class Home extends React.Component {
     const room = this.generateRoom();
     const doc = this.props.firebase.createRoomEntry();
     const roomID = doc.id;
-    doc.set({ ...room }).then(() => this.props.history.push(`/rooms/${roomID}`));
+    doc
+      .set({ ...room })
+      .then(() => this.props.history.push(`/rooms/${roomID}`))
   };
 
   render() {

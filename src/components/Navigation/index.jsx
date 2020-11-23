@@ -14,13 +14,13 @@ class Navigation extends React.Component {
   }
 
   showElement = (event) => {
-    this.setState({ isOpen: true }, () => console.log(this.state));
+    this.setState({ isOpen: true });
     document.getElementById("root").addEventListener("click", this.hideElement);
   };
 
   hideElement = (event) => {
     if (event.target.id !== "searchValue") {
-      this.setState({ isOpen: false }, () => console.log(this.state));
+      this.setState({ isOpen: false });
       document.getElementById("root").removeEventListener("click", this.hideElement);
     }
   };

@@ -5,14 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Firebase, { FirebaseContext } from "./components/Firebase";
 import { BrowserRouter } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseContext.Provider value={new Firebase()}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </FirebaseContext.Provider>
+    <ErrorBoundary>
+      <FirebaseContext.Provider value={new Firebase()}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </FirebaseContext.Provider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById("root")
 );

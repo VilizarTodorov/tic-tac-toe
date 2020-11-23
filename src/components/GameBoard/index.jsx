@@ -193,27 +193,18 @@ class GameBoard extends React.Component {
 
     this.markLossAndWinForPlayers(winner);
 
-    this.props.firebase
-      .updateRoomEntry(roomID, room)
-      .then((x) => console.log("success", x))
-      .catch((err) => console.log(err));
+    this.props.firebase.updateRoomEntry(roomID, room)
   };
 
   removeGuest = (roomID) => {
     const symbol = this.state.guest === this.state.X ? "X" : "O";
     const updateObj = { [symbol]: "empty", guest: "" };
 
-    this.props.firebase
-      .updateRoomEntry(roomID, updateObj)
-      .then(console.log("guest removed"))
-      .catch((err) => console.log(err));
+    this.props.firebase.updateRoomEntry(roomID, updateObj);
   };
 
   ownerLeaveGame = (roomID) => {
-    this.props.firebase
-      .deleteRoom(roomID)
-      .then(console.log("room deleted successfully"))
-      .catch((error) => console.log(error));
+    this.props.firebase.deleteRoom(roomID);
   };
 
   guestLeaveGame = (roomID) => {

@@ -21,7 +21,6 @@ class Rooms extends React.Component {
         snapshot.forEach((doc) => rooms.push({ ...doc.data(), id: doc.id }));
       })
       .then(() => this.setState({ rooms }))
-      .catch((err) => console.log(err));
   }
 
   render() {

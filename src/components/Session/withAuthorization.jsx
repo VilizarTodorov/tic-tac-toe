@@ -12,7 +12,7 @@ const withAuthorization = (condition) => (Component) => {
       this.listener = this.props.firebase.auth.onAuthStateChanged((authUser) => {
         if (!condition(authUser)) {
           if (this.props.location.pathname === "/sign-in" || this.props.location.pathname === "/sign-up") {
-            console.log(this.props);
+          
             this.props.history.push(HOME);
             return;
           }
