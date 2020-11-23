@@ -6,7 +6,7 @@ const ProfileView = (props) => {
   return (
     <div className="App-profile-page App-page">
       <div className="App-profile page-content">
-        <h1>Profile Information</h1>
+        <h1 className='page-title'>Profile Information</h1>
         <p>{props.username}</p>
         <p>{`Wins: ${props.wins}`}</p>
         <p>{`Draws: ${props.draws}`}</p>

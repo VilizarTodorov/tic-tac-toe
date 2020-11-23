@@ -9,6 +9,15 @@
   justify-content: space-evenly;
 }
 
+.page-title{
+  text-align: center;
+  padding: 3px;
+}
+
+.secondary-title{
+  margin-top: 10px;
+}
+
 @media (min-width: 275px) {
   .App-page {
     width: 270px;

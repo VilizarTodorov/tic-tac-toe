@@ -48,26 +48,14 @@ class Navigation extends React.Component {
           </li>
 
           <li className="nav-option">
-            <Link to={ROUTES.PROFILE}>
-              <p>Profile</p>
-            </Link>
-          </li>
-
-          <li className="nav-option">
             <Link to={ROUTES.LEADER_BOARD}>
               <p>Leader Board</p>
             </Link>
           </li>
-
+          
           <li className="nav-option">
-            <Link to={ROUTES.SIGN_IN}>
-              <p>SIGN_IN</p>
-            </Link>
-          </li>
-
-          <li className="nav-option">
-            <Link to={ROUTES.SIGN_UP}>
-              <p>SIGN_UP</p>
+            <Link to={ROUTES.PROFILE}>
+              <p>Profile</p>
             </Link>
           </li>
         </ul>
