@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import * as ROUTES from "../../constants/routes";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useTransition, animated, config } from "react-spring";
-import "./styles.css";
+import "./styles.scss";
 
 const Home = React.lazy(() => import("../Home"));
 const SignIn = React.lazy(() => import("../SignIn"));

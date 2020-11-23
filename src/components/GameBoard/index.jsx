@@ -4,7 +4,7 @@ import { HOME, ROOMS } from "../../constants/routes";
 import { withAuthorization } from "../Session";
 import Message from "./Message";
 import Controls from "./Controls";
-import "./styles.css";
+import "./styles.scss";
 import { config, Spring } from "react-spring/renderprops";
 
 const INITIAL_STATE = {

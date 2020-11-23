@@ -1,7 +1,7 @@
 import React from "react";
 import { withAuthorization } from "../Session";
 import ProfileView from "./ProfileDummyComponent/profile-view";
-import "./styles.css";
+import "./styles.scss";
 
 const INITIAL_STATE = {
   username: "",

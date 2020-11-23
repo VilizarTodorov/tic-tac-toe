@@ -1,7 +1,7 @@
 import React from 'react'
 import Navigation from '../Navigation'
 import Logo from '../Logo';
-import './styles.css'
+import './styles.scss'
 
 const Header = (props) => {
     return(

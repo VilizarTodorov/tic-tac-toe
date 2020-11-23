@@ -1,0 +1,34 @@
+@import "./utils/commonCss/component-container.scss";
+@import "./utils/commonCss/form-input.scss";
+@import "./utils/commonCss/form-link.scss";
+@import "./utils/commonCss/o.scss";
+@import "./utils/commonCss/page-content.scss";
+@import "./utils/commonCss/page-form.scss";
+@import "./utils/commonCss/page.scss";
+@import "./utils/commonCss/reset.scss";
+@import "./utils/commonCss/submit-button.scss";
+@import "./utils/commonCss/x.scss";
+
+.App {
+  background-color: orange;
+  height: 100vh;
+  overflow: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}

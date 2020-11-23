@@ -1,7 +1,7 @@
 import React from "react";
 import SymbolO from "../SymbolO";
 import SymbolX from "../SymbolX";
-import "./styles.css";
+import "./styles.scss";
 
 const BoardSpace = (props) => {
   return (

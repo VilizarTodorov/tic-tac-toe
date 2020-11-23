@@ -2,7 +2,7 @@ import React from "react";
 import SignUpFrom from "./sign-up-form";
 import SignUpLink from "./sign-up-link";
 import { SignInLink } from "../SignIn";
-import "./styles.css"
+import "./styles.scss"
 
 const SignUpPage = (props) => {
   return (

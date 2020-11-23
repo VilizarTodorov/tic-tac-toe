@@ -1,7 +1,7 @@
 import React from "react";
 import { withAuthorization } from "../Session";
 import { Transition } from "react-spring/renderprops";
-import "./styles.css";
+import "./styles.scss";
 
 const GameBoard = React.lazy(() => import("../GameBoard"));
 const InitialGameBoardScreen = React.lazy(() => import("../InitialGameBoardScreen"));

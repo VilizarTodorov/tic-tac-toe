@@ -1,6 +1,6 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
-import './styles.css'
+import './styles.scss'
 
 const SignOut = (props) => {
   const onClick = () => {

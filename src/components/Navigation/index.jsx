@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import "./styles.css";
+import "./styles.scss";
 
 const INITIAL_STATE = {
   isOpen: false,

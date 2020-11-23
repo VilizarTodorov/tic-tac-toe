@@ -1,7 +1,7 @@
 import React from "react";
 import { withAuthorization } from "../Session";
 import RoomsView from "./RoomsDummyComponent/rooms-view";
-import "./styles.css";
+import "./styles.scss";
 
 const INITIAL_STATE = {
   rooms: [],

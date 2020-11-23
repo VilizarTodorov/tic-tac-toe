@@ -2,7 +2,7 @@ import React from "react";
 import ChangePasswordForm from "./change-password-form";
 import ChangePasswordLink from "./change-password-link";
 import { withAuthorization } from "../Session";
-import "./styles.css"
+import "./styles.scss"
 
 const ChangePassword = () => {
   return (

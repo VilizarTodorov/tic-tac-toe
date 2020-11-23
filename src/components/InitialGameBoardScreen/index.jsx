@@ -1,7 +1,7 @@
 import React from "react";
 import { HOME, ROOMS } from "../../constants/routes";
 import { withAuthorization } from "../Session";
-import "./styles.css";
+import "./styles.scss";
 
 const INITIAL_STATE = {
   hasChosenX: false,

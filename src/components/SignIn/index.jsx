@@ -3,7 +3,7 @@ import SignInForm from "./sign-in-form";
 import SignInLink from "./sign-in-link";
 import { SignUpLink } from "../SignUp";
 import { ResetPasswordLink } from "../ResetPassword";
-import './styles.css'
+import './styles.scss'
 
 const SignInPage = (props) => {
   return (
