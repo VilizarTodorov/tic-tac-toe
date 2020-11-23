@@ -4,7 +4,7 @@ import UserEntry from "../UserEntry";
 const LeaderBoardView = (props) => {
   const usersList = props.users.map((user, index) => {
     return (
-      <li key={index}>
+      <li className="user" key={index}>
         <UserEntry username={user.username} wins={user.wins} losses={user.losses} points={user.points}></UserEntry>
       </li>
     );

@@ -4,7 +4,7 @@ import RoomEntity from "../RoomEntity";
 const RoomsView = (props) => {
   const roomsList = props.rooms.map((room, index) => {
     return (
-      <li key={index}>
+      <li className='room' key={index}>
         <RoomEntity roomName={room.roomName} roomID={room.id}></RoomEntity>
       </li>
     );

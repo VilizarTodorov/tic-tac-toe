@@ -8,6 +8,7 @@
 @import "./utils/commonCss/reset.scss";
 @import "./utils/commonCss/submit-button.scss";
 @import "./utils/commonCss/x.scss";
+@import './utils/commonCss/scrollbar.scss';
 
 .App {
   background-color: orange;
@@ -19,16 +20,3 @@ li {
   list-style: none;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-}

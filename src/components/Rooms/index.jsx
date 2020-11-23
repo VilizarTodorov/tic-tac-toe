@@ -12,7 +12,7 @@ class Rooms extends React.Component {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
-
+  
   componentDidMount() {
     const rooms = [];
     this.props.firebase

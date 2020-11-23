@@ -1,12 +1,13 @@
+.App-leader-board-page {
+  height: 500px;
+}
+
 .leader-board {
+  padding: 10px;
   flex-direction: column;
   display: flex;
   flex-grow: 1;
   width: 80%;
   justify-content: flex-start;
-  overflow: hidden;  
-}
-
-.leader-board:hover{
-  overflow-y: auto;
+  overflow: auto;
 }
