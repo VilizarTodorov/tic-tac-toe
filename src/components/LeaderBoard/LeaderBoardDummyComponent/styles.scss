@@ -1,0 +1,23 @@
+.user {
+  transition: all 0.4s ease-in-out;
+    filter: brightness(0.95);;
+
+  &:nth-child(even) {
+    .user-entity {
+      background-color: #f05483;
+      border: 3px solid #43c2af;
+    }
+  }
+
+  &:nth-child(odd) {
+    .user-entity {
+      background-color: #43c2af;
+      border: 3px solid #f05483;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.07);
+    filter: brightness(1.2);
+  }
+}

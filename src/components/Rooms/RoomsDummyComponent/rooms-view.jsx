@@ -1,10 +1,11 @@
 import React from "react";
 import RoomEntity from "../RoomEntity";
+import "./styles.scss";
 
 const RoomsView = (props) => {
   const roomsList = props.rooms.map((room, index) => {
     return (
-      <li className='room' key={index}>
+      <li className="room" key={index}>
         <RoomEntity roomName={room.roomName} roomID={room.id}></RoomEntity>
       </li>
     );

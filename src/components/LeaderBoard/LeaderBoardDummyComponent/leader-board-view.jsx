@@ -1,5 +1,6 @@
 import React from "react";
 import UserEntry from "../UserEntry";
+import './styles.scss'
 
 const LeaderBoardView = (props) => {
   const usersList = props.users.map((user, index) => {

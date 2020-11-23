@@ -1,5 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../../Session";
+import "./styles.scss";
 
 const JoinRoomButton = (props) => {
   const onClick = () => {
@@ -16,7 +17,11 @@ const JoinRoomButton = (props) => {
       .catch((error) => console.log(error));
   };
 
-  return <button onClick={onClick}>Join</button>;
+  return (
+    <button className="join-button submit-button" onClick={onClick}>
+      Join
+    </button>
+  );
 };
 
 const condition = (authUser) => authUser != null;

@@ -1,15 +1,19 @@
 .submit-button {
-    border: none;
-    outline: none;
-    // height: 30px;
-    background-color: #2482dc;
-    border-radius: 10px;
-    color: #ffd486;
-    // font-size: 16px;
-    font-weight: bold;
-    transition: all 0.4s 
+  border: none;
+  outline: none;
+  // height: 30px;
+  background-color: #2482dc;
+  border-radius: 10px;
+  color: #ffd486;
+  // font-size: 16px;
+  font-weight: bold;
+  transition: all 0.4s;
 }
 
-.submit-button.disabled{
-    background-color:#132e48 ;
+.submit-button.disabled {
+  background-color: #132e48;
+}
+
+.submit-button:hover {
+  filter: brightness(1.2);
 }

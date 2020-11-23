@@ -8,7 +8,7 @@ const SignOut = (props) => {
   };
 
   return (
-    <button className="submit-button sing-out-button" onClick={onClick}>
+    <button className="submit-button sign-out-button" onClick={onClick}>
       Sign Out
     </button>
   );
