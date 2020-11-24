@@ -24,13 +24,13 @@
   transition: all 0.4s ease-in-out;
 }
 
-.initial-board .x:hover .x__line {
-  stroke: #f05483;
-}
+// .initial-board .x:hover .x__line {
+//   stroke: #f05483;
+// }
 
-.initial-board .o__line:hover {
-  stroke: #43c2af;
-}
+// .initial-board .o__line:hover {
+//   stroke: #43c2af;
+// }
 
 .x.chosen .x__line {
   stroke: #f05483;
