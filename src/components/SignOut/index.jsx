@@ -1,16 +1,30 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { withFirebase } from "../Firebase";
-import './styles.scss'
+import { ERROR_MESSAGE } from "../../constants/messages";
+import "./styles.scss";
 
 const SignOut = (props) => {
-  const onClick = () => {
-    props.firebase.signOutUser();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+  const [error, setError] = useState(null);
+
+  const onClick = async () => {
+    setIsSigningOut(true);
+
+    try {
+      await props.firebase.signOutUser();
+    } catch (err) {
+      setError(err);
+      setIsSigningOut(false);
+    }
   };
 
   return (
-    <button className="submit-button sign-out-button" onClick={onClick}>
-      Sign Out
-    </button>
+    <Fragment>
+      <button disabled={isSigningOut} className="submit-button sign-out-button" onClick={onClick}>
+        Sign{isSigningOut ? "ing" : ""} Out
+      </button>
+      {error && alert(ERROR_MESSAGE)}
+    </Fragment>
   );
 };
 
