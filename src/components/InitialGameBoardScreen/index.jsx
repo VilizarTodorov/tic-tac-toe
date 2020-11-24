@@ -6,6 +6,9 @@ import "./styles.scss";
 const INITIAL_STATE = {
   hasChosenX: false,
   hasChosenO: false,
+  isOFree: false,
+  isXFree: false,
+  isUpdating: true,
 };
 
 class InitialGameBoardScreen extends React.Component {
@@ -33,6 +36,14 @@ class InitialGameBoardScreen extends React.Component {
             ...doc.data(),
           },
           () => {
+            if (this.state.X === "empty") {
+              this.setState({ isXFree: true });
+            }
+
+            if (this.state.O === "empty") {
+              this.setState({ isOFree: true });
+            }
+
             if (this.state.X !== "empty" && this.state.X === this.props.user.uid) {
               this.setState({ hasChosenX: true });
             }
@@ -40,6 +51,8 @@ class InitialGameBoardScreen extends React.Component {
             if (this.state.O !== "empty" && this.state.O === this.props.user.uid) {
               this.setState({ hasChosenO: true });
             }
+
+            this.setState({ isUpdating: false });
 
             if (this.state.X !== "empty" && this.state.O !== "empty") {
               this.props.startGame();
@@ -61,46 +74,61 @@ class InitialGameBoardScreen extends React.Component {
   };
 
   chooseX = () => {
+    if (this.state.isUpdating) {
+      alert("Please wait a few seconds UwU");
+      return;
+    }
+
     if (this.state.hasChosenO) {
-      alert("You already chose O");
+      alert("You have already chosen O");
       return;
     }
 
-    if (this.state.X !== "empty" && this.state.hasChosenX === false) {
-      alert("X is already taken");
-      return;
-    }
-
-    if (this.state.X !== "empty" && this.state.hasChosenX) {
+    if (this.state.hasChosenX) {
       alert("You have already chosen X");
       return;
     }
 
-    const roomID = this.getRoomID();
-    this.props.firebase.updateRoomEntry(roomID, {
-      X: this.props.user.uid,
+    if (!this.state.isXFree) {
+      alert("X is taken");
+      return;
+    }
+
+    this.setState({ isUpdating: true }, () => {
+      const roomID = this.getRoomID();
+
+      this.props.firebase.updateRoomEntry(roomID, {
+        X: this.props.user.uid,
+      });
     });
   };
 
   chooseO = () => {
+    if (this.state.isUpdating) {
+      alert("Please wait a few seconds UwU");
+      return;
+    }
+
     if (this.state.hasChosenX) {
-      alert("You already chose X");
-      return;
-    }
-
-    if (this.state.O !== "empty" && this.state.hasChosenO === false) {
-      alert("O is already taken");
-      return;
-    }
-
-    if (this.state.O !== "empty" && this.state.hasChosenO) {
       alert("You have already chosen X");
       return;
     }
 
-    const roomID = this.getRoomID();
-    this.props.firebase.updateRoomEntry(roomID, {
-      O: this.props.user.uid,
+    if (this.state.hasChosenO) {
+      alert("You have already chosen O");
+      return;
+    }
+
+    if (!this.state.isOFree) {
+      alert("O is taken");
+    }
+
+    this.setState({ isUpdating: true }, () => {
+      const roomID = this.getRoomID();
+
+      this.props.firebase.updateRoomEntry(roomID, {
+        O: this.props.user.uid,
+      });
     });
   };
 
