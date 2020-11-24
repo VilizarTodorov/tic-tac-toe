@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { withAuthorization } from "../Session";
 import { makeCancelable } from "../../utils/functions";
 import RoomsView from "./RoomsDummyComponent/rooms-view";
-import { ERROR_MESSAGE } from "../../constants/messages";
 import "./styles.scss";
 
 const INITIAL_STATE = {
@@ -35,14 +34,9 @@ class Rooms extends React.Component {
   }
 
   render() {
-    const { rooms, isFetching, error } = this.state;
+    const { rooms, isFetching } = this.state;
 
-    return (
-      <Fragment>
-        {isFetching ? <p>...Loading</p> : <RoomsView rooms={rooms}></RoomsView>}
-        {error && alert(ERROR_MESSAGE)}
-      </Fragment>
-    );
+    return <Fragment>{isFetching ? <p>...Loading</p> : <RoomsView rooms={rooms}></RoomsView>}</Fragment>;
   }
 }
 

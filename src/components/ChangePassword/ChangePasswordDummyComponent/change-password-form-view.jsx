@@ -27,14 +27,14 @@ const ChangePasswordFormView = (props) => {
         />
 
         <button
-          disabled={props.isInvalid}
+          disabled={props.isInvalid || props.isChanging}
           className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
           type="submit"
         >
-          Change Password
+          Chang{props.isChanging ? "ing" : "е"} Password
         </button>
 
-        {props.error && <p>{props.error.message}</p>}
+        {props.error && alert(props.error.message)}
       </form>
     </div>
   );

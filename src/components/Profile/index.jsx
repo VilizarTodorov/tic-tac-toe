@@ -1,5 +1,6 @@
 import React from "react";
 import { withAuthorization } from "../Session";
+import { makeCancelable } from "../../utils/functions";
 import ProfileView from "./ProfileDummyComponent/profile-view";
 import "./styles.scss";
 
@@ -9,6 +10,8 @@ const INITIAL_STATE = {
   draws: 0,
   losses: 0,
   points: 0,
+  isFetching: true,
+  error: null,
 };
 
 class Profile extends React.Component {
@@ -18,7 +21,15 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.props.firebase.getUserEntry(this.props.user.uid).then((user) => this.setState({ ...user.data() }));
+    this.cancelable = makeCancelable(this.props.firebase.getUserEntry(this.props.user.uid));
+
+    this.cancelable.promise
+      .then((user) => this.setState({ ...user.data(), isFetching: false }))
+      .catch((error) => this.setState({ error, isFetching: false }));
+  }
+
+  componentWillUnmount() {
+    this.cancelable.cancel();
   }
 
   render() {

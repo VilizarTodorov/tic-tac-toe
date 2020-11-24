@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { withAuthorization } from "../Session";
 import LeaderBoardView from "./LeaderBoardDummyComponent/leader-board-view";
 import { makeCancelable } from "../../utils/functions";
@@ -33,9 +33,9 @@ class LeaderBoard extends React.Component {
   }
 
   render() {
-    const { users } = this.state;
+    const { users, isFetching } = this.state;
 
-    return <LeaderBoardView users={users}></LeaderBoardView>;
+    return <Fragment>{isFetching ? <p>...Loading</p> : <LeaderBoardView users={users}></LeaderBoardView>}</Fragment>;
   }
 }
 

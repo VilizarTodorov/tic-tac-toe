@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   newPassword: "",
   repeatNewPassword: "",
   error: null,
+  isChanging: false,
 };
 
 class ChangePasswordForm extends React.Component {
@@ -21,18 +22,21 @@ class ChangePasswordForm extends React.Component {
 
   onSubmit = (event) => {
     const { newPassword } = this.state;
-    this.props.firebase
-      .updatePassword(newPassword)
-      .then(() => {
-        this.props.history.push(ROUTES.PROFILE);
-      })
-      .catch((error) => this.setState({ error }));
+
+    this.setState({ isChanging: true }, () =>
+      this.props.firebase
+        .updatePassword(newPassword)
+        .then(() => {
+          this.props.history.push(ROUTES.PROFILE);
+        })
+        .catch((error) => this.setState({ error, isChanging: false }))
+    );
 
     event.preventDefault();
   };
 
   render() {
-    const { newPassword, repeatNewPassword, error } = this.state;
+    const { newPassword, repeatNewPassword, error, isChanging } = this.state;
     const isInvalid = newPassword.length < 6 || newPassword !== repeatNewPassword;
     return (
       <ChangePasswordFormView
@@ -42,6 +46,7 @@ class ChangePasswordForm extends React.Component {
         repeatNewPassword={repeatNewPassword}
         isInvalid={isInvalid}
         error={error}
+        isChanging={isChanging}
       ></ChangePasswordFormView>
     );
   }
