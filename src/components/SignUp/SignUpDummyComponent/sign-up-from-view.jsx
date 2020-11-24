@@ -49,14 +49,14 @@ const SignUpFormView = (props) => {
         />
 
         <button
-          disabled={props.isInvalid}
+          disabled={props.isInvalid || props.isSigningUp}
           className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
           type="submit"
         >
-          Sign Up
+          Sign{props.isSigningUp ? "ing" : ""} Up
         </button>
 
-        {props.error && <p>{props.error.message}</p>}
+        {props.error && alert(props.error.message)}
       </form>
     </div>
   );

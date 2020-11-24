@@ -8,6 +8,7 @@ import ResetPasswordFormView from "./ResetPasswordDummyComponent/reset-password-
 const INITIAL_STATE = {
   resetEmail: "",
   error: null,
+  isResetting: false,
 };
 
 class ResetPasswordForm extends React.Component {
@@ -21,19 +22,23 @@ class ResetPasswordForm extends React.Component {
   };
 
   onSubmit = (event) => {
-    event.preventDefault();
-
     const { resetEmail } = this.state;
-    this.props.firebase
-      .passwordReset(resetEmail)
-      .then(() => {
-        this.props.history.push(SIGN_IN);
-      })
-      .catch((error) => this.setState({ error }));
+
+    this.setState({ isResetting: true }, () =>
+      this.props.firebase
+        .passwordReset(resetEmail)
+        .then(() => {
+          this.props.history.push(SIGN_IN);
+        })
+        .catch((error) => this.setState({ error, isResetting: false }))
+    );
+
+    event.preventDefault();
   };
 
   render() {
-    const { resetEmail, error } = this.state;
+    console.log('a')
+    const { resetEmail, error, isResetting } = this.state;
     const isInvalid = resetEmail === "";
     return (
       <ResetPasswordFormView
@@ -42,6 +47,7 @@ class ResetPasswordForm extends React.Component {
         resetEmail={resetEmail}
         isInvalid={isInvalid}
         error={error}
+        isResetting={isResetting}
       ></ResetPasswordFormView>
     );
   }

@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   password: "",
   repeatPassword: "",
   error: "",
+  isSigningUp: false,
 };
 
 class BaseSignUpForm extends React.Component {
@@ -29,20 +30,24 @@ class BaseSignUpForm extends React.Component {
       losses: 0,
       points: 0,
     };
-    this.props.firebase
-      .createUserWithEmail(email, password)
-      .then(({ user }) => {
-        this.props.firebase.createUserEntry(user.uid, dbUSer);
-        this.props.history.replace(HOME);
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
+
+    this.setState({ isSigningUp: true }, () =>
+      this.props.firebase
+        .createUserWithEmail(email, password)
+        .then(({ user }) => {
+          this.props.firebase.createUserEntry(user.uid, dbUSer);
+          this.props.history.replace(HOME);
+        })
+        .catch((error) => {
+          this.setState({ error, isSigningUp: false });
+        })
+    );
+
     event.preventDefault();
   };
 
   render() {
-    const { email, username, password, repeatPassword, error } = this.state;
+    const { email, username, password, repeatPassword, error, isSigningUp } = this.state;
 
     const isInvalid =
       password !== repeatPassword ||
@@ -62,6 +67,7 @@ class BaseSignUpForm extends React.Component {
         repeatPassword={repeatPassword}
         isInvalid={isInvalid}
         error={error}
+        isSigningUp={isSigningUp}
       />
     );
   }

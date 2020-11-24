@@ -3,7 +3,7 @@ import { withAuthorization } from "../Session";
 import HomeView from "./HomeDummyComponent/home-view";
 import "./styles.scss";
 
-const INITIAL_STATE = {
+const INITIAL_ROOM_STATE = {
   roomName: "",
   board: [null, null, null, null, null, null, null, null, null],
   X: "empty",
@@ -19,6 +19,12 @@ const INITIAL_STATE = {
   guestWantsRematch: false,
 };
 
+const INITIAL_STATE = {
+  roomName: "",
+  error: null,
+  isCreating: false,
+};
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -30,25 +36,31 @@ class Home extends React.Component {
   };
 
   generateRoom = () => {
-    const room = { ...this.state };
+    const room = { ...INITIAL_ROOM_STATE };
     room.owner = this.props.user.uid;
+    room.roomName = this.state.roomName;
     return room;
   };
 
   createRoom = (event) => {
-    event.preventDefault();
     const room = this.generateRoom();
     const doc = this.props.firebase.createRoomEntry();
     const roomID = doc.id;
-    doc
-      .set({ ...room })
-      .then(() => this.props.history.push(`/rooms/${roomID}`))
+
+    this.setState({ isCreating: true }, () =>
+      doc
+        .set({ ...room })
+        .then(() => this.props.history.push(`/rooms/${roomID}`))
+        .catch((error) => this.setState({ error, isCreating: false }))
+    );
+
+    event.preventDefault();
   };
 
   render() {
-    const { roomName } = this.state;
+    const { roomName,isCreating } = this.state;
     let isInvalid = roomName === "";
-    return <HomeView createRoom={this.createRoom} roomName={roomName} onChange={this.onChange} isInvalid={isInvalid} />;
+    return <HomeView isCreating={isCreating} createRoom={this.createRoom} roomName={roomName} onChange={this.onChange} isInvalid={isInvalid} />;
   }
 }
 

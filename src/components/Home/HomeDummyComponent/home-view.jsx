@@ -20,10 +20,10 @@ const HomeView = (props) => {
 
           <button
             type="submit"
-            disabled={props.isInvalid}
+            disabled={props.isInvalid || props.isCreating}
             className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
           >
-            Create room
+            Creat{props.isCreating ? "ing" : "e"} room
           </button>
         </form>
       </div>

@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   email: "",
   password: "",
   error: "",
+  isSigningIn: false,
 };
 
 class BaseSignInForm extends React.Component {
@@ -22,16 +23,17 @@ class BaseSignInForm extends React.Component {
   onSubmit = (event) => {
     const from = this.getFromLocation();
     const { email, password } = this.state;
-    this.props.firebase
-      .signInWithEmailAddress(email, password)
-      .then((user) => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.replace(from);
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
-
+    this.setState({ isSigningIn: true }, () =>
+      this.props.firebase
+        .signInWithEmailAddress(email, password)
+        .then((user) => {
+          this.props.history.replace(from);
+        })
+        .catch((error) => {
+          this.setState({ error, isSigningIn: false });
+        })
+    );
+    
     event.preventDefault();
   };
 
@@ -40,7 +42,7 @@ class BaseSignInForm extends React.Component {
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const { email, password, error, isSigningIn } = this.state;
 
     const isInvalid = email === "" || password === "";
 
@@ -48,6 +50,7 @@ class BaseSignInForm extends React.Component {
       <SignInFormView
         onSubmit={this.onSubmit}
         onChange={this.onChange}
+        isSigningIn={isSigningIn}
         email={email}
         password={password}
         isInvalid={isInvalid}

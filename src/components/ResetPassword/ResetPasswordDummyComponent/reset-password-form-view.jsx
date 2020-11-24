@@ -17,14 +17,14 @@ const ResetPasswordFormView = (props) => {
         />
 
         <button
-          disabled={props.isInvalid}
+          disabled={props.isInvalid || props.isResetting}
           className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
           type="submit"
         >
-          Reset Password
+          {props.isResetting ? "Sending Email" : "Reset Password"}
         </button>
 
-        {props.error && <p>{props.error.message}</p>}
+        {props.error && alert(props.error.message)}
       </form>
     </div>
   );
