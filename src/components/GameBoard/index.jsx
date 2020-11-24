@@ -18,23 +18,23 @@ const INITIAL_STATE = {
   guestWantsRematch: false,
 };
 
+const INITIAL_USER_OBJ = {
+  username: "",
+  wins: 0,
+  losses: 0,
+  points: 0,
+};
+
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ...INITIAL_STATE,
-      ownerDbEntry: {
-        username: "",
-        wins: 0,
-        losses: 0,
-        points: 0,
-      },
-      guestDbEntry: {
-        username: "",
-        wins: 0,
-        losses: 0,
-        points: 0,
-      },
+      ownerDbEntry: {...INITIAL_USER_OBJ},
+      guestDbEntry: {...INITIAL_USER_OBJ},
+      isUpdating: true,
+      kicking: false,
+      leaving: false,
     };
   }
 
@@ -78,6 +78,7 @@ class GameBoard extends React.Component {
 
         this.setState({
           ...doc.data(),
+          isUpdating: false,
         });
       } else {
         this.props.history.replace(HOME);
@@ -94,8 +95,10 @@ class GameBoard extends React.Component {
   };
 
   clearBoart = (oldX, oldO) => {
-    const roomID = this.getRoomId();
-    this.props.firebase.updateRoomEntry(roomID, { ...INITIAL_STATE, X: oldO, O: oldX });
+    this.setState({ isUpdating: true }, () => {
+      const roomID = this.getRoomId();
+      this.props.firebase.updateRoomEntry(roomID, { ...INITIAL_STATE, X: oldO, O: oldX });
+    });
   };
 
   checkBoard = (board, symbol) => {
@@ -131,6 +134,10 @@ class GameBoard extends React.Component {
   };
 
   performPlayerTurn = (index) => {
+    if (this.state.isUpdating) {
+      return;
+    }
+
     if (this.state.isGameDone) {
       return;
     }
@@ -191,9 +198,10 @@ class GameBoard extends React.Component {
       winner,
     };
 
-    this.markLossAndWinForPlayers(winner);
-
-    this.props.firebase.updateRoomEntry(roomID, room)
+    this.setState({ isUpdating: true }, () => {
+      this.markLossAndWinForPlayers(winner);
+      this.props.firebase.updateRoomEntry(roomID, room);
+    });
   };
 
   removeGuest = (roomID) => {
