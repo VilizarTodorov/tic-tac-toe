@@ -9,8 +9,8 @@ const Controls = (props) => {
         <div className="guest-controls">
           <p className={`user guest ${props.isOwnerX ? "player-o" : "player-x"}`}>{props.guest}</p>
           {props.isOwner && (
-            <button className="control-button kick-button" onClick={props.kickGuest}>
-              Kick
+            <button disabled={props.isKicking} className="control-button kick-button" onClick={props.kickGuest}>
+              Kick{props.isKicking ? "ing" : ""}
             </button>
           )}
         </div>
@@ -24,8 +24,8 @@ const Controls = (props) => {
           Rematch
         </button>
 
-        <button onClick={props.leaveGame} className="control-button leave-button" >
-          Leave Game
+        <button disabled={props.isLeaving} onClick={props.leaveGame} className="control-button leave-button">
+          Leav{props.isLeaving ? "ing" : "e"} Game
         </button>
       </div>
     </div>
