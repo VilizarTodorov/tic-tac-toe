@@ -228,6 +228,11 @@ class GameBoard extends React.Component {
   };
 
   kickGuest = () => {
+    if (this.state.isUpdating) {
+      alert("Please wait a few seconds");
+      return;
+    }
+
     if (!this.state.guest) {
       alert("There is no guest to kick UwU");
       return;
@@ -241,6 +246,7 @@ class GameBoard extends React.Component {
 
   leaveGameRoom = () => {
     if (this.state.isUpdating) {
+      alert("Please wait a few seconds");
       return;
     }
 

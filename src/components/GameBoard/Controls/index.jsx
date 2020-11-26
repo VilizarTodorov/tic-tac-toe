@@ -5,9 +5,9 @@ const Controls = (props) => {
   return (
     <div className="controls">
       <div className="users">
-        <p className={`user owner ${props.isOwnerX ? "player-x" : "player-o"}`}>{props.owner}</p>
+        <p className={`game-user owner ${props.isOwnerX ? "player-x" : "player-o"}`}>{props.owner}</p>
         <div className="guest-controls">
-          <p className={`user guest ${props.isOwnerX ? "player-o" : "player-x"}`}>{props.guest}</p>
+          <p className={`game-user guest ${props.isOwnerX ? "player-o" : "player-x"}`}>{props.guest}</p>
           {props.isOwner && (
             <button disabled={props.isKicking} className="control-button kick-button" onClick={props.kickGuest}>
               Kick{props.isKicking ? "ing" : ""}
