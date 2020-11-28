@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
 
 const SignInFormView = (props) => {
   return (
@@ -34,7 +35,7 @@ const SignInFormView = (props) => {
         >
           Sign{props.isSigningIn ? "ing" : ""} In
         </button>
-        {props.error && alert(props.error.message)}
+        <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </form>
     </div>
   );

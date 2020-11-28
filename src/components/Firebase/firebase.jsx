@@ -61,6 +61,9 @@ class Firebase {
       .collection(this.usersCollection)
       .doc(uid)
       .update({ ...user });
+
+  createTransaction = (updateFunction, docRef, symbol) =>
+    this.firestore.runTransaction((transaction) => updateFunction(transaction, docRef, symbol));
 }
 
 export default Firebase;

@@ -20,8 +20,18 @@ class ChangePasswordForm extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   onSubmit = (event) => {
-    const { newPassword } = this.state;
+    event.preventDefault();
+    const { newPassword, repeatNewPassword } = this.state;
+
+    if (newPassword !== repeatNewPassword) {
+      this.setState({ error: { message: "New Password and Repeat New Password must match" } });
+      return;
+    }
 
     this.setState({ isChanging: true }, () =>
       this.props.firebase
@@ -32,21 +42,19 @@ class ChangePasswordForm extends React.Component {
         .catch((error) => this.setState({ error, isChanging: false }))
     );
 
-    event.preventDefault();
   };
 
   render() {
     const { newPassword, repeatNewPassword, error, isChanging } = this.state;
-    const isInvalid = newPassword.length < 6 || newPassword !== repeatNewPassword;
     return (
       <ChangePasswordFormView
         onSubmit={this.onSubmit}
         onChange={this.onChange}
         newPassword={newPassword}
         repeatNewPassword={repeatNewPassword}
-        isInvalid={isInvalid}
         error={error}
         isChanging={isChanging}
+        OK={this.OK}
       ></ChangePasswordFormView>
     );
   }

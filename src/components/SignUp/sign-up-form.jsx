@@ -22,14 +22,26 @@ class BaseSignUpForm extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  //extract to helper functions
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   onSubmit = (event) => {
-    const { email, password, username } = this.state;
+    event.preventDefault();
+
+    const { email, password, username, repeatPassword } = this.state;
     const dbUSer = {
       username: username,
       wins: 0,
       losses: 0,
       points: 0,
     };
+
+    if (password !== repeatPassword) {
+      this.setState({ error: { message: "Password and Repeat Password must match" } });
+      return;
+    }
 
     this.setState({ isSigningUp: true }, () =>
       this.props.firebase
@@ -42,20 +54,10 @@ class BaseSignUpForm extends React.Component {
           this.setState({ error, isSigningUp: false });
         })
     );
-
-    event.preventDefault();
   };
 
   render() {
     const { email, username, password, repeatPassword, error, isSigningUp } = this.state;
-
-    const isInvalid =
-      password !== repeatPassword ||
-      password === "" ||
-      repeatPassword === "" ||
-      email === "" ||
-      password.length < 6 ||
-      username === "";
 
     return (
       <SingUpFormView
@@ -65,9 +67,9 @@ class BaseSignUpForm extends React.Component {
         username={username}
         password={password}
         repeatPassword={repeatPassword}
-        isInvalid={isInvalid}
         error={error}
         isSigningUp={isSigningUp}
+        OK={this.OK}
       />
     );
   }

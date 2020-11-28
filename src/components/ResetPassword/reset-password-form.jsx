@@ -17,6 +17,11 @@ class ResetPasswordForm extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  OK = () => {
+    this.setState({ error: null });
+    return;
+  };
+
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -37,17 +42,15 @@ class ResetPasswordForm extends React.Component {
   };
 
   render() {
-    console.log('a')
     const { resetEmail, error, isResetting } = this.state;
-    const isInvalid = resetEmail === "";
     return (
       <ResetPasswordFormView
         onSubmit={this.onSubmit}
         onChange={this.onChange}
         resetEmail={resetEmail}
-        isInvalid={isInvalid}
         error={error}
         isResetting={isResetting}
+        OK={this.OK}
       ></ResetPasswordFormView>
     );
   }

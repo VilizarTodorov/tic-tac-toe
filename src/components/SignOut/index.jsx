@@ -1,21 +1,24 @@
 import React, { Fragment, useState } from "react";
 import { withFirebase } from "../Firebase";
-import { ERROR_MESSAGE } from "../../constants/messages";
+import ErrorPopUpMessage from "../ErrorPopUpMessage";
+
 import "./styles.scss";
 
 const SignOut = (props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [error, setError] = useState(null);
 
-  const onClick = async () => {
+  const OK = () => {
+    setError(null)
+  }
+
+  const onClick = () => {
     setIsSigningOut(true);
 
-    try {
-      await props.firebase.signOutUser();
-    } catch (err) {
+    props.firebase.signOutUser().catch((err) => {
       setError(err);
       setIsSigningOut(false);
-    }
+    });
   };
 
   return (
@@ -23,7 +26,7 @@ const SignOut = (props) => {
       <button disabled={isSigningOut} className="submit-button sign-out-button" onClick={onClick}>
         Sign{isSigningOut ? "ing" : ""} Out
       </button>
-      {error && alert(ERROR_MESSAGE)}
+      <ErrorPopUpMessage OK={OK} error={error}></ErrorPopUpMessage>
     </Fragment>
   );
 };

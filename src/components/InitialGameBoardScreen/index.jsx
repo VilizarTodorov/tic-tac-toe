@@ -94,13 +94,15 @@ class InitialGameBoardScreen extends React.Component {
       return;
     }
 
-    this.setState({ isUpdating: true }, () => {
-      const roomID = this.getRoomID();
+    // this.setState({ isUpdating: true }, () => {
+    //   const roomID = this.getRoomID();
 
-      this.props.firebase.updateRoomEntry(roomID, {
-        X: this.props.user.uid,
-      });
-    });
+    //   this.props.firebase.updateRoomEntry(roomID, {
+    //     X: this.props.user.uid,
+    //   });
+    // });
+
+    this.choose("X");
   };
 
   chooseO = () => {
@@ -123,12 +125,42 @@ class InitialGameBoardScreen extends React.Component {
       alert("O is taken");
     }
 
+    // this.setState({ isUpdating: true }, () => {
+    //   const roomID = this.getRoomID();
+
+    //   this.props.firebase.updateRoomEntry(roomID, {
+    //     O: this.props.user.uid,
+    //   });
+    // });
+    this.choose("O");
+  };
+
+  choose = (symbol) => {
     this.setState({ isUpdating: true }, () => {
       const roomID = this.getRoomID();
+      const docRef = this.props.firebase.getRoomEntry(roomID);
 
-      this.props.firebase.updateRoomEntry(roomID, {
-        O: this.props.user.uid,
-      });
+      this.props.firebase
+        .createTransaction(this.updateFunction, docRef, symbol)
+        .catch((error) => {
+          console.log(error);
+          this.setState({ isUpdating: false });
+        });
+    });
+  };
+
+  updateFunction = (transaction, docRef, symbol) => {
+    return transaction.get(docRef).then((doc) => {
+      if (!doc.exists) {
+        throw Error ("Document doest exist");
+      }
+
+      const isSymbolTaken = doc.data()[symbol];
+      if (isSymbolTaken === "empty") {
+        transaction.update(docRef, { [symbol]: this.props.user.uid });
+      } else {
+        return Promise.reject(`Sorry ${symbol} is taken`);
+      }
     });
   };
 

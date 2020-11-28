@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
 
 const ChangePasswordFormView = (props) => {
   return (
@@ -27,14 +28,14 @@ const ChangePasswordFormView = (props) => {
         />
 
         <button
-          disabled={props.isInvalid || props.isChanging}
+          disabled={props.isChanging}
           className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
           type="submit"
         >
           Chang{props.isChanging ? "ing" : "е"} Password
         </button>
 
-        {props.error && alert(props.error.message)}
+        <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </form>
     </div>
   );

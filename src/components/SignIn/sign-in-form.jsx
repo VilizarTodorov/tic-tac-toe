@@ -20,6 +20,11 @@ class BaseSignInForm extends React.Component {
     return from;
   };
 
+  //extract to helper functions
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   onSubmit = (event) => {
     const from = this.getFromLocation();
     const { email, password } = this.state;
@@ -33,7 +38,7 @@ class BaseSignInForm extends React.Component {
           this.setState({ error, isSigningIn: false });
         })
     );
-    
+
     event.preventDefault();
   };
 
@@ -44,8 +49,6 @@ class BaseSignInForm extends React.Component {
   render() {
     const { email, password, error, isSigningIn } = this.state;
 
-    const isInvalid = email === "" || password === "";
-
     return (
       <SignInFormView
         onSubmit={this.onSubmit}
@@ -53,8 +56,8 @@ class BaseSignInForm extends React.Component {
         isSigningIn={isSigningIn}
         email={email}
         password={password}
-        isInvalid={isInvalid}
         error={error}
+        OK={this.OK}
       />
     );
   }
