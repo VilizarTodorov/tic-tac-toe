@@ -1,6 +1,7 @@
 import React from "react";
 import { HOME, ROOMS } from "../../constants/routes";
 import { withAuthorization } from "../Session";
+import ErrorPopUpMessage from "../ErrorPopUpMessage";
 import "./styles.scss";
 
 const INITIAL_STATE = {
@@ -9,6 +10,7 @@ const INITIAL_STATE = {
   isOFree: false,
   isXFree: false,
   isUpdating: true,
+  error: null,
 };
 
 class InitialGameBoardScreen extends React.Component {
@@ -69,69 +71,59 @@ class InitialGameBoardScreen extends React.Component {
     this.listener();
   }
 
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   getRoomID = () => {
     return this.props.match.params.room;
   };
 
   chooseX = () => {
     if (this.state.isUpdating) {
-      alert("Please wait a few seconds UwU");
+      this.setState({ error : { message: "Please wait a few seconds UwU" } });
       return;
     }
 
     if (this.state.hasChosenO) {
-      alert("You have already chosen O");
+      this.setState({ error : { message: "You have already chosen O" } });
       return;
     }
 
     if (this.state.hasChosenX) {
-      alert("You have already chosen X");
+      this.setState({ error : { message: "You have already chosen X" } });
       return;
     }
 
     if (!this.state.isXFree) {
-      alert("X is taken");
+      this.setState({ error : { message: "X is taken" } });
       return;
     }
-
-    // this.setState({ isUpdating: true }, () => {
-    //   const roomID = this.getRoomID();
-
-    //   this.props.firebase.updateRoomEntry(roomID, {
-    //     X: this.props.user.uid,
-    //   });
-    // });
 
     this.choose("X");
   };
 
   chooseO = () => {
     if (this.state.isUpdating) {
-      alert("Please wait a few seconds UwU");
+      this.setState({ error : { message: "Please wait a few seconds UwU" } });
       return;
     }
 
     if (this.state.hasChosenX) {
-      alert("You have already chosen X");
+      this.setState({ error : { message: "You have already chosen X" } });
       return;
     }
 
     if (this.state.hasChosenO) {
-      alert("You have already chosen O");
+      this.setState({ error : { message: "You have already chosen O" } });
       return;
     }
 
     if (!this.state.isOFree) {
-      alert("O is taken");
+      this.setState({ error : { message: "O is taken" } });
+      return;
     }
 
-    // this.setState({ isUpdating: true }, () => {
-    //   const roomID = this.getRoomID();
-
-    //   this.props.firebase.updateRoomEntry(roomID, {
-    //     O: this.props.user.uid,
-    //   });
-    // });
     this.choose("O");
   };
 
@@ -140,19 +132,16 @@ class InitialGameBoardScreen extends React.Component {
       const roomID = this.getRoomID();
       const docRef = this.props.firebase.getRoomEntry(roomID);
 
-      this.props.firebase
-        .createTransaction(this.updateFunction, docRef, symbol)
-        .catch((error) => {
-          console.log(error);
-          this.setState({ isUpdating: false });
-        });
+      this.props.firebase.createTransaction(this.updateFunction, docRef, symbol).catch((error) => {
+        this.setState({ error, isUpdating: false });
+      });
     });
   };
 
   updateFunction = (transaction, docRef, symbol) => {
     return transaction.get(docRef).then((doc) => {
       if (!doc.exists) {
-        throw Error ("Document doest exist");
+        throw Error("Document doest exist");
       }
 
       const isSymbolTaken = doc.data()[symbol];
@@ -165,7 +154,7 @@ class InitialGameBoardScreen extends React.Component {
   };
 
   render() {
-    const { hasChosenX, hasChosenO } = this.state;
+    const { hasChosenX, hasChosenO, error } = this.state;
 
     return (
       <div className="component-container">
@@ -202,6 +191,7 @@ class InitialGameBoardScreen extends React.Component {
             </svg>
           </div>
         </div>
+        <ErrorPopUpMessage OK={this.OK} error={error}></ErrorPopUpMessage>
       </div>
     );
   }

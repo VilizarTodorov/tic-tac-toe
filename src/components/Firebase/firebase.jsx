@@ -51,6 +51,7 @@ class Firebase {
       .update({ ...room });
   getAllRooms = () => this.firestore.collection(this.roomsCollection).get();
   deleteRoom = (id) => this.firestore.collection(this.roomsCollection).doc(id).delete();
+  getAllRoomsRef = () => this.firestore.collection(this.roomsCollection);
 
   //user entry functions
   getTop10Users = () => this.firestore.collection(this.usersCollection).orderBy("points", "desc").limit(10).get();

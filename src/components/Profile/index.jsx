@@ -32,9 +32,22 @@ class Profile extends React.Component {
     this.cancelable.cancel();
   }
 
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   render() {
-    const { username, wins, losses, points } = this.state;
-    return <ProfileView username={username} wins={wins} losses={losses} points={points}></ProfileView>;
+    const { username, wins, losses, points, error } = this.state;
+    return (
+      <ProfileView
+        username={username}
+        wins={wins}
+        losses={losses}
+        points={points}
+        error={error}
+        OK={this.OK}
+      ></ProfileView>
+    );
   }
 }
 

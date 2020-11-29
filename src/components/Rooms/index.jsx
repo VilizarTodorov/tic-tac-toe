@@ -1,6 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { withAuthorization } from "../Session";
-import { makeCancelable } from "../../utils/functions";
 import RoomsView from "./RoomsDummyComponent/rooms-view";
 import "./styles.scss";
 
@@ -16,70 +15,33 @@ class Rooms extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  OK = () => {
+    this.setState({ error: null });
+  };
+
   componentDidMount() {
-    const rooms = [];
-
-    this.cancelable = makeCancelable(this.props.firebase.getAllRooms());
-
-    this.cancelable.promise
-      .then((snapshot) => {
+    this.listener = this.props.firebase.getAllRoomsRef().onSnapshot(
+      (snapshot) => {
+        let rooms = [];
         snapshot.forEach((doc) => rooms.push({ ...doc.data(), id: doc.id }));
-      })
-      .then(() => this.setState({ rooms, isFetching: false }))
-      .catch((error) => this.setState({ error, isFetching: false }));
+        this.setState({ rooms, isFetching: false });
+      },
+      (error) => {
+        this.setState({ error, isFetching: false });
+      }
+    );
   }
 
   componentWillUnmount() {
-    this.cancelable.cancel();
+    this.listener();
   }
 
   render() {
-    const { rooms, isFetching } = this.state;
+    const { rooms, isFetching, error } = this.state;
 
-    return <Fragment>{isFetching ? <p>...Loading</p> : <RoomsView rooms={rooms}></RoomsView>}</Fragment>;
+    return <RoomsView OK={this.OK} error={error} rooms={rooms} isFetching={isFetching}></RoomsView>;
   }
 }
-
-// const Rooms = (props) => {
-//   const [rooms, setRooms] = useState([]);
-//   const [isFetching, setIsFetching] = useState(true);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     let cancelable = makeCancelable(props.firebase.getAllRooms());
-
-//     async function fetchData() {
-//       try {
-//         await cancelable.promise
-//           .then((snapshot) => {
-//             const collection = [];
-//             snapshot.forEach((doc) => {
-//               collection.push({ ...doc.data(), id: doc.id });
-//             });
-//             return collection;
-//           })
-//           .then((collection) => setRooms(collection));
-//       } catch (err) {
-//         setError(err);
-//       } finally {
-//         setIsFetching(false);
-//       }
-//     }
-
-//     fetchData();
-
-//     return function cleanUp() {
-//       cancelable.cancel();
-//     };
-//   }, [props.firebase]);
-
-//   return (
-//     <Fragment>
-//       {isFetching ? <p>...Loading</p> : <RoomsView rooms={rooms}></RoomsView>}
-//       {error && alert(ERROR_MESSAGE)}
-//     </Fragment>
-//   );
-// };
 
 const condition = (authUser) => authUser != null;
 

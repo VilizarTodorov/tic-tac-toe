@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
 import RoomEntity from "../RoomEntity";
 import "./styles.scss";
 
@@ -16,6 +17,7 @@ const RoomsView = (props) => {
       <div className="page-content">
         <h1 className="page-title">Rooms</h1>
         <ul className="rooms">{roomsList}</ul>
+        <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { ChangePasswordLink } from "../../ChangePassword";
 import SignOut from "../../SignOut";
+import ErrorPopUpMessage from '../../ErrorPopUpMessage'
 
 const ProfileView = (props) => {
   return (
@@ -13,6 +14,7 @@ const ProfileView = (props) => {
         <p>{`Points: ${props.points}`}</p>
         <ChangePasswordLink></ChangePasswordLink>
         <SignOut></SignOut>
+        <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </div>
     </div>
   );

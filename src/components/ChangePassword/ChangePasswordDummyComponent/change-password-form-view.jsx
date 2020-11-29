@@ -29,7 +29,7 @@ const ChangePasswordFormView = (props) => {
 
         <button
           disabled={props.isChanging}
-          className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
+          className={`submit-button ${props.isChanging ? "disabled" : ""}`}
           type="submit"
         >
           Chang{props.isChanging ? "ing" : "е"} Password

@@ -1,7 +1,4 @@
 .room {
-  transition: all 0.4s ease-in-out;
-  filter: brightness(0.9);
-
   &:nth-child(even) {
     .room-entity {
       background-color: #f05483;
@@ -15,9 +12,4 @@
       border: 3px solid #f05483;
     }
   }
-
-  // &:hover {
-  //   transform: scale(1.07);
-  //   filter: brightness(1);
-  // }
 }

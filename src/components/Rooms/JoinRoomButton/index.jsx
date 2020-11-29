@@ -1,11 +1,16 @@
 import React, { Fragment, useState } from "react";
 import { withAuthorization } from "../../Session";
-import { ERROR_MESSAGE, ROOM_IS_FULL } from "../../../constants/messages";
+import { ROOM_IS_FULL } from "../../../constants/messages";
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
 import "./styles.scss";
 
 const JoinRoomButton = (props) => {
   const [isJoining, setIsJoining] = useState(false);
   const [error, setError] = useState(null);
+
+  const OK = () => {
+    setError(null)
+  }
 
   const onClick = async () => {
     setIsJoining(true);
@@ -16,7 +21,7 @@ const JoinRoomButton = (props) => {
           props.history.push(`/rooms/${props.roomID}`);
           return;
         }
-        alert(ROOM_IS_FULL);
+        setError({ message: ROOM_IS_FULL });
       });
     } catch (err) {
       setError(err);
@@ -29,7 +34,7 @@ const JoinRoomButton = (props) => {
       <button disabled={isJoining} className="join-button submit-button" onClick={onClick}>
         Join{isJoining ? "ing" : ""}
       </button>
-      {error && alert(ERROR_MESSAGE)}
+      <ErrorPopUpMessage OK={OK} error={error}></ErrorPopUpMessage>
     </Fragment>
   );
 };

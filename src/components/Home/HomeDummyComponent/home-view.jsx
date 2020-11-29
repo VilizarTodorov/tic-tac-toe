@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopUpMessage from '../../ErrorPopUpMessage'
 
 const HomeView = (props) => {
   return (
@@ -20,11 +21,13 @@ const HomeView = (props) => {
 
           <button
             type="submit"
-            disabled={props.isInvalid || props.isCreating}
-            className={`submit-button ${props.isInvalid ? "disabled" : ""}`}
+            disabled={props.isCreating}
+            className={`submit-button ${props.isCreating ? "disabled" : ""}`}
           >
             Creat{props.isCreating ? "ing" : "e"} room
           </button>
+
+          <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
         </form>
       </div>
     </div>

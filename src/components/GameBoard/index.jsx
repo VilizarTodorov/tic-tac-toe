@@ -36,66 +36,76 @@ class GameBoard extends React.Component {
       isKicking: false,
       isLeaving: false,
       offeredRematch: false,
+      error: null,
     };
   }
 
   componentDidMount() {
     const roomID = this.getRoomId();
 
-    this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
-      if (doc.data()) {
-        const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
+    this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot(
+      (doc) => {
+        if (doc.data()) {
+          const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
 
-        if (!guest) {
-          this.setState({ guestDbEntry: { ...INITIAL_USER_OBJ } });
-        }
+          if (!guest) {
+            this.setState({ guestDbEntry: { ...INITIAL_USER_OBJ } });
+          }
 
-        if (!this.state.ownerDbEntry.username) {
-          this.props.firebase
-            .getUserEntry(owner)
-            .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
-        }
+          if (!this.state.ownerDbEntry.username) {
+            this.props.firebase
+              .getUserEntry(owner)
+              .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+          }
 
-        if (!this.state.guestDbEntry.username && guest) {
-          this.props.firebase
-            .getUserEntry(guest)
-            .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
-        }
-
-        if (isGameDone) {
-          if (guest) {
+          if (!this.state.guestDbEntry.username && guest) {
             this.props.firebase
               .getUserEntry(guest)
               .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
           }
 
-          this.props.firebase
-            .getUserEntry(owner)
-            .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+          if (isGameDone) {
+            if (guest) {
+              this.props.firebase
+                .getUserEntry(guest)
+                .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
+            }
 
-          if ((ownerWantsRematch && guestWantsRematch) || !guest) {
-            const { X, O } = doc.data();
-            this.clearBoart(X, O);
+            this.props.firebase
+              .getUserEntry(owner)
+              .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+
+            if ((ownerWantsRematch && guestWantsRematch) || !guest) {
+              const { X, O } = doc.data();
+              this.clearBoart(X, O);
+            }
           }
-        }
 
-        if (this.props.user.uid !== owner && this.props.user.uid !== guest) {
-          this.props.history.replace(ROOMS);
-        }
+          if (this.props.user.uid !== owner && this.props.user.uid !== guest) {
+            this.props.history.replace(ROOMS);
+          }
 
-        this.setState({
-          ...doc.data(),
-          isUpdating: false,
-          isKicking: false,
-        });
-      } else {
-        this.props.history.replace(HOME);
+          this.setState({
+            ...doc.data(),
+            isUpdating: false,
+            isKicking: false,
+          });
+        } else {
+          this.props.history.replace(HOME);
+        }
+      },
+      (error) => {
+        this.setState({ isUpdating: false, isKicking: false, error });
       }
-    });
+    );
   }
 
   componentWillUnmount() {
     this.listener();
+  }
+
+  OK = () => {
+    this.setState({error:null})
   }
 
   getRoomId = () => {
@@ -103,7 +113,7 @@ class GameBoard extends React.Component {
   };
 
   clearBoart = (oldX, oldO) => {
-    this.setState({ isUpdating: true }, () => {
+    this.setState({ isUpdating: true, offeredRematch: false }, () => {
       const roomID = this.getRoomId();
       this.props.firebase.updateRoomEntry(roomID, { ...INITIAL_STATE, X: oldO, O: oldX });
     });
@@ -229,12 +239,12 @@ class GameBoard extends React.Component {
 
   kickGuest = () => {
     if (this.state.isUpdating) {
-      alert("Please wait a few seconds");
+      this.setState({ error: { message: "Please wait a few seconds"}});
       return;
     }
 
     if (!this.state.guest) {
-      alert("There is no guest to kick UwU");
+      this.setState({ error: { message: "There is no guest to kick UwU"}});
       return;
     }
 
@@ -246,7 +256,7 @@ class GameBoard extends React.Component {
 
   leaveGameRoom = () => {
     if (this.state.isUpdating) {
-      alert("Please wait a few seconds");
+      this.setState({ error: { message: "Please wait a few seconds"}});
       return;
     }
 
@@ -263,15 +273,17 @@ class GameBoard extends React.Component {
   };
 
   rematch = () => {
-    const roomID = this.getRoomId();
+    this.setState({ offeredRematch: true }, () => {
+      const roomID = this.getRoomId();
 
-    if (this.props.user.uid === this.state.guest) {
-      this.props.firebase.updateRoomEntry(roomID, { guestWantsRematch: true });
-    }
+      if (this.props.user.uid === this.state.guest) {
+        this.props.firebase.updateRoomEntry(roomID, { guestWantsRematch: true });
+      }
 
-    if (this.props.user.uid === this.state.owner) {
-      this.props.firebase.updateRoomEntry(roomID, { ownerWantsRematch: true });
-    }
+      if (this.props.user.uid === this.state.owner) {
+        this.props.firebase.updateRoomEntry(roomID, { ownerWantsRematch: true });
+      }
+    });
   };
 
   markLossAndWinForPlayers = (winner) => {
@@ -304,7 +316,19 @@ class GameBoard extends React.Component {
   };
 
   render() {
-    const { board, message, owner, isGameDone, X, ownerDbEntry, guestDbEntry, isLeaving, isKicking } = this.state;
+    const {
+      board,
+      message,
+      owner,
+      isGameDone,
+      X,
+      ownerDbEntry,
+      guestDbEntry,
+      isLeaving,
+      isKicking,
+      offeredRematch,
+      error,
+    } = this.state;
 
     const isOwner = this.props.user.uid === owner;
 
@@ -343,6 +367,9 @@ class GameBoard extends React.Component {
                 kickGuest={this.kickGuest}
                 isLeaving={isLeaving}
                 isKicking={isKicking}
+                offeredRematch={offeredRematch}
+                error={error}
+                OK={this.OK}
               ></Controls>
             </div>
           )}

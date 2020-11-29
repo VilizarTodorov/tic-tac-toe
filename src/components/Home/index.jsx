@@ -31,6 +31,11 @@ class Home extends React.Component {
     this.state = { ...INITIAL_STATE };
   }
 
+  OK = () => {
+    this.setState({ error: null });
+    return;
+  };
+
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -58,9 +63,17 @@ class Home extends React.Component {
   };
 
   render() {
-    const { roomName,isCreating } = this.state;
-    let isInvalid = roomName === "";
-    return <HomeView isCreating={isCreating} createRoom={this.createRoom} roomName={roomName} onChange={this.onChange} isInvalid={isInvalid} />;
+    const { roomName, isCreating, error } = this.state;
+    return (
+      <HomeView
+        isCreating={isCreating}
+        createRoom={this.createRoom}
+        roomName={roomName}
+        onChange={this.onChange}
+        error={error}
+        OK={this.OK}
+      />
+    );
   }
 }
 

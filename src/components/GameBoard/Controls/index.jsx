@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
 import "./styles.scss";
 
 const Controls = (props) => {
@@ -18,16 +19,18 @@ const Controls = (props) => {
 
       <div className="button-container">
         <button
+          disabled={props.offeredRematch}
           className={`rematch-button ${props.isGameDone ? "visible control-button" : ""}`}
           onClick={props.rematch}
         >
-          Rematch
+          {props.offeredRematch ? "Waiting for Opponent" : "Rematch"}
         </button>
 
         <button disabled={props.isLeaving} onClick={props.leaveGame} className="control-button leave-button">
           Leav{props.isLeaving ? "ing" : "e"} Game
         </button>
       </div>
+      <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
     </div>
   );
 };
