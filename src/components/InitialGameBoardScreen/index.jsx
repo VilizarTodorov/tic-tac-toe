@@ -23,7 +23,7 @@ class InitialGameBoardScreen extends React.Component {
     const roomID = this.getRoomID();
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot((doc) => {
       if (doc.data()) {
-        const { owner, guest } = doc.data();
+        const { owner, guest, X, O } = doc.data();
 
         if (guest !== "" && guest !== this.props.user.uid && this.props.user.uid !== owner) {
           this.props.history.replace(ROOMS);
@@ -33,29 +33,31 @@ class InitialGameBoardScreen extends React.Component {
           this.props.firebase.updateRoomEntry(roomID, { guest: this.props.user.uid });
         }
 
+        const tempObj = {};
+
+        if (X === "empty") {
+          tempObj.isXFree = true;
+        }
+
+        if (O === "empty") {
+          tempObj.isOFree = true;
+        }
+
+        if (X !== "empty" && X === this.props.user.uid) {
+          tempObj.hasChosenX = true;
+        }
+
+        if (O !== "empty" && O === this.props.user.uid) {
+          tempObj.hasChosenO = true;
+        }
+
         this.setState(
           {
             ...doc.data(),
+            ...tempObj,
+            isUpdating: false,
           },
           () => {
-            if (this.state.X === "empty") {
-              this.setState({ isXFree: true });
-            }
-
-            if (this.state.O === "empty") {
-              this.setState({ isOFree: true });
-            }
-
-            if (this.state.X !== "empty" && this.state.X === this.props.user.uid) {
-              this.setState({ hasChosenX: true });
-            }
-
-            if (this.state.O !== "empty" && this.state.O === this.props.user.uid) {
-              this.setState({ hasChosenO: true });
-            }
-
-            this.setState({ isUpdating: false });
-
             if (this.state.X !== "empty" && this.state.O !== "empty") {
               this.props.startGame();
             }
@@ -81,22 +83,22 @@ class InitialGameBoardScreen extends React.Component {
 
   chooseX = () => {
     if (this.state.isUpdating) {
-      this.setState({ error : { message: "Please wait a few seconds UwU" } });
+      this.setState({ error: { message: "Please wait a few seconds UwU" } });
       return;
     }
 
     if (this.state.hasChosenO) {
-      this.setState({ error : { message: "You have already chosen O" } });
+      this.setState({ error: { message: "You have already chosen O" } });
       return;
     }
 
     if (this.state.hasChosenX) {
-      this.setState({ error : { message: "You have already chosen X" } });
+      this.setState({ error: { message: "You have already chosen X" } });
       return;
     }
 
     if (!this.state.isXFree) {
-      this.setState({ error : { message: "X is taken" } });
+      this.setState({ error: { message: "X is taken" } });
       return;
     }
 
@@ -105,22 +107,22 @@ class InitialGameBoardScreen extends React.Component {
 
   chooseO = () => {
     if (this.state.isUpdating) {
-      this.setState({ error : { message: "Please wait a few seconds UwU" } });
+      this.setState({ error: { message: "Please wait a few seconds UwU" } });
       return;
     }
 
     if (this.state.hasChosenX) {
-      this.setState({ error : { message: "You have already chosen X" } });
+      this.setState({ error: { message: "You have already chosen X" } });
       return;
     }
 
     if (this.state.hasChosenO) {
-      this.setState({ error : { message: "You have already chosen O" } });
+      this.setState({ error: { message: "You have already chosen O" } });
       return;
     }
 
     if (!this.state.isOFree) {
-      this.setState({ error : { message: "O is taken" } });
+      this.setState({ error: { message: "O is taken" } });
       return;
     }
 
@@ -148,7 +150,7 @@ class InitialGameBoardScreen extends React.Component {
       if (isSymbolTaken === "empty") {
         transaction.update(docRef, { [symbol]: this.props.user.uid });
       } else {
-        return Promise.reject(`Sorry ${symbol} is taken`);
+        return Promise.reject({ message: `Sorry ${symbol} is taken` });
       }
     });
   };

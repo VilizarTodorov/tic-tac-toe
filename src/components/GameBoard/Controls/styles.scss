@@ -40,8 +40,9 @@
 }
 
 .kick-button {
-  margin-left: auto;
-  flex-grow: 0.8;
+  // margin-left: auto;
+  // flex-grow: 0.8;
+  width: 100%;
   height: 31px;
   background-color: yellow;
 }
@@ -67,6 +68,7 @@
 }
 
 .leave-button {
+  width: 100%;
   background-color: red;
 }
 

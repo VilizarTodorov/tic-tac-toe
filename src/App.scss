@@ -8,8 +8,8 @@
 @import "./utils/commonCss/reset.scss";
 @import "./utils/commonCss/submit-button.scss";
 @import "./utils/commonCss/x.scss";
-@import './utils/commonCss/scrollbar.scss';
-@import './utils/commonCss/typography.scss';
+@import "./utils/commonCss/scrollbar.scss";
+@import "./utils/commonCss/typography.scss";
 
 .App {
   background-color: orange;
@@ -21,3 +21,15 @@ li {
   list-style: none;
 }
 
+button {
+  cursor: pointer;
+}
+
+button:active {
+  box-shadow: inset 0px 0px 10px 0 rgba(0, 0, 0, 0.9);
+  // box-shadow:
+  // 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+  // -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+  // inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+  // inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+}

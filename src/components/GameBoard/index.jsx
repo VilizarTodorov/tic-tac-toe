@@ -44,39 +44,40 @@ class GameBoard extends React.Component {
     const roomID = this.getRoomId();
 
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot(
-      (doc) => {
+      async (doc) => {
         if (doc.data()) {
-          const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone } = doc.data();
+          const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone, X, O } = doc.data();
+
+          const tempObj = {};
 
           if (!guest) {
-            this.setState({ guestDbEntry: { ...INITIAL_USER_OBJ } });
+            tempObj.guestDbEntry = { ...INITIAL_USER_OBJ };
           }
 
           if (!this.state.ownerDbEntry.username) {
-            this.props.firebase
-              .getUserEntry(owner)
-              .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+            await this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
+              tempObj.ownerDbEntry = { ...ownerDoc.data() };
+            });
           }
 
           if (!this.state.guestDbEntry.username && guest) {
-            this.props.firebase
-              .getUserEntry(guest)
-              .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
+            await this.props.firebase.getUserEntry(guest).then((guestDoc) => {
+              tempObj.guestDbEntry = { ...guestDoc.data() };
+            });
           }
 
           if (isGameDone) {
             if (guest) {
-              this.props.firebase
-                .getUserEntry(guest)
-                .then((guestDoc) => this.setState({ guestDbEntry: { ...guestDoc.data() } }));
+              await this.props.firebase.getUserEntry(guest).then((guestDoc) => {
+                tempObj.guestDbEntry = { ...guestDoc.data() };
+              });
             }
 
-            this.props.firebase
-              .getUserEntry(owner)
-              .then((ownerDoc) => this.setState({ ownerDbEntry: { ...ownerDoc.data() } }));
+            await this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
+              tempObj.ownerDbEntry = { ...ownerDoc.data() };
+            });
 
-            if ((ownerWantsRematch && guestWantsRematch) || !guest) {
-              const { X, O } = doc.data();
+            if (ownerWantsRematch && guestWantsRematch) {
               this.clearBoart(X, O);
             }
           }
@@ -87,6 +88,7 @@ class GameBoard extends React.Component {
 
           this.setState({
             ...doc.data(),
+            ...tempObj,
             isUpdating: false,
             isKicking: false,
           });
@@ -105,8 +107,8 @@ class GameBoard extends React.Component {
   }
 
   OK = () => {
-    this.setState({error:null})
-  }
+    this.setState({ error: null });
+  };
 
   getRoomId = () => {
     return this.props.match.params.room;
@@ -152,6 +154,12 @@ class GameBoard extends React.Component {
   };
 
   performPlayerTurn = (index) => {
+    if (this.state.X === "empty" || this.state.O === "empty") {
+      console.log("aaa");
+      this.setState({ error: { message: "Waiting for player" } });
+      return;
+    }
+
     if (this.state.isUpdating) {
       return;
     }
@@ -222,11 +230,13 @@ class GameBoard extends React.Component {
     });
   };
 
-  removeGuest = (roomID) => {
+  removeGuest = async (roomID) => {
     const symbol = this.state.guest === this.state.X ? "X" : "O";
     const updateObj = { [symbol]: "empty", guest: "" };
 
-    this.props.firebase.updateRoomEntry(roomID, updateObj);
+    await this.props.firebase.updateRoomEntry(roomID, updateObj);
+
+    this.clearBoart(this.state.X, this.state.O);
   };
 
   ownerLeaveGame = (roomID) => {
@@ -239,24 +249,26 @@ class GameBoard extends React.Component {
 
   kickGuest = () => {
     if (this.state.isUpdating) {
-      this.setState({ error: { message: "Please wait a few seconds"}});
+      this.setState({ error: { message: "Please wait a few seconds" } });
       return;
     }
 
     if (!this.state.guest) {
-      this.setState({ error: { message: "There is no guest to kick UwU"}});
+      this.setState({ error: { message: "There is no guest to kick UwU" } });
       return;
     }
 
     this.setState({ isKicking: true, isUpdating: true }, () => {
       const roomID = this.getRoomId();
-      this.removeGuest(roomID);
+      this.removeGuest(roomID).then(() =>
+        this.setState({ error: { message: "Guest has been removed from the game" } })
+      );
     });
   };
 
   leaveGameRoom = () => {
     if (this.state.isUpdating) {
-      this.setState({ error: { message: "Please wait a few seconds"}});
+      this.setState({ error: { message: "Please wait a few seconds" } });
       return;
     }
 
