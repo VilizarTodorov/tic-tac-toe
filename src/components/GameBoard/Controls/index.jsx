@@ -20,7 +20,7 @@ const Controls = (props) => {
 
   const kick = useSpring({
     from: { transform: "rotateX(90deg)" },
-    to: { transform: "rotateX(0)", "flex-grow": "0.8", "margin-left": "auto" },
+    to: { transform: "rotateX(0)", "flexGrow": "0.8", "marginLeft": "auto" },
     delay: 150,
     config: { ...config.wobbly },
   });

@@ -4,9 +4,8 @@ import "./styles.scss";
 const UserEntry = (props) => {
   return (
     <div className="user-entity">
-      <p>{props.username}</p>
-      <p>Wins: {props.wins}</p>
-      <p>Points: {props.points}</p>
+      <p className="user-username">{props.username}</p>
+      <p className="user-user-points">{`Points: ${props.points}`}</p>
     </div>
   );
 };

@@ -8,3 +8,9 @@
   justify-content: space-between;
 }
 
+.room-name {
+  width: 70%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

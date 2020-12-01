@@ -44,42 +44,47 @@ class GameBoard extends React.Component {
     const roomID = this.getRoomId();
 
     this.listener = this.props.firebase.getRoomEntry(roomID).onSnapshot(
-      async (doc) => {
+      (doc) => {
         if (doc.data()) {
           const { owner, guest, ownerWantsRematch, guestWantsRematch, isGameDone, X, O } = doc.data();
 
-          const tempObj = {};
+          // const tempObj = {};
 
           if (!guest) {
-            tempObj.guestDbEntry = { ...INITIAL_USER_OBJ };
+            this.setState({ guestDbEntry: { ...INITIAL_USER_OBJ } });
+            // tempObj.guestDbEntry = { ...INITIAL_USER_OBJ };
           }
 
           if (!this.state.ownerDbEntry.username) {
-            await this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
-              tempObj.ownerDbEntry = { ...ownerDoc.data() };
+            this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
+              // tempObj.ownerDbEntry = { ...ownerDoc.data() };
+              this.setState({ ownerDbEntry: { ...ownerDoc.data() } });
             });
           }
 
           if (!this.state.guestDbEntry.username && guest) {
-            await this.props.firebase.getUserEntry(guest).then((guestDoc) => {
-              tempObj.guestDbEntry = { ...guestDoc.data() };
+            this.props.firebase.getUserEntry(guest).then((guestDoc) => {
+              // tempObj.guestDbEntry = { ...guestDoc.data() };
+              this.setState({ guestDbEntry: { ...guestDoc.data() } });
             });
           }
 
           if (isGameDone) {
-            if (guest) {
-              await this.props.firebase.getUserEntry(guest).then((guestDoc) => {
-                tempObj.guestDbEntry = { ...guestDoc.data() };
-              });
-            }
-
-            await this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
-              tempObj.ownerDbEntry = { ...ownerDoc.data() };
-            });
-
             if (ownerWantsRematch && guestWantsRematch) {
               this.clearBoart(X, O);
             }
+
+            if (guest) {
+              this.props.firebase.getUserEntry(guest).then((guestDoc) => {
+                // tempObj.guestDbEntry = { ...guestDoc.data() };
+                this.setState({ guestDbEntry: { ...guestDoc.data() } });
+              });
+            }
+
+            this.props.firebase.getUserEntry(owner).then((ownerDoc) => {
+              // tempObj.ownerDbEntry = { ...ownerDoc.data() };
+              this.setState({ ownerDbEntry: { ...ownerDoc.data() } });
+            });
           }
 
           if (this.props.user.uid !== owner && this.props.user.uid !== guest) {
@@ -88,7 +93,6 @@ class GameBoard extends React.Component {
 
           this.setState({
             ...doc.data(),
-            ...tempObj,
             isUpdating: false,
             isKicking: false,
           });
