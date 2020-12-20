@@ -1,5 +1,6 @@
 import React from "react";
 import ErrorPopUpMessage from "../../ErrorPopUpMessage";
+import GoBackButton from "../../GoBackButton";
 
 const ChangePasswordFormView = (props) => {
   return (
@@ -35,8 +36,10 @@ const ChangePasswordFormView = (props) => {
           Chang{props.isChanging ? "ing" : "е"} Password
         </button>
 
+
         <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </form>
+        <GoBackButton></GoBackButton>
     </div>
   );
 };

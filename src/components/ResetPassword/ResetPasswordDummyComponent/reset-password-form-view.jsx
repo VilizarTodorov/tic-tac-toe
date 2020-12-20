@@ -1,5 +1,6 @@
 import React from "react";
-import ErrorPopUpMessage from '../../ErrorPopUpMessage'
+import ErrorPopUpMessage from "../../ErrorPopUpMessage";
+import GoBackButton from "../../GoBackButton";
 
 const ResetPasswordFormView = (props) => {
   return (
@@ -25,8 +26,10 @@ const ResetPasswordFormView = (props) => {
           {props.isResetting ? "Sending Email" : "Reset Password"}
         </button>
 
+
         <ErrorPopUpMessage OK={props.OK} error={props.error}></ErrorPopUpMessage>
       </form>
+        <GoBackButton></GoBackButton>
     </div>
   );
 };
