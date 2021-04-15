@@ -69,6 +69,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-### `IMPORTANT`
-
-check the firebase component and add the firebase config obj in order for the application to work correctly
+This is an online tic tac toe game using cra and firebase 
+Clone the project and run npm install
+If you want to play on localhost create 2 accounts and login into the accounts from 2 different browsers create a room and have fun 
